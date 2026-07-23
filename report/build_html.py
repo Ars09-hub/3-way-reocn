@@ -7,6 +7,7 @@ values. No restyling, no colours outside :root, no em dashes in copy.
 from __future__ import annotations
 
 import html
+import json
 import os
 
 import pandas as pd
@@ -14,6 +15,34 @@ import pandas as pd
 from core.normalize import halalas_to_str as H
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+# Supplementary CSS: new classes only, for the filter bar, sub-tabs and the
+# column-mode toggle (addendum section 8). Colours come from existing tokens.
+DETAIL_CSS = """
+<style>
+.dd-filterbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;
+  background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 16px;margin-bottom:14px}
+.dd-fb-text{font-size:13px;color:var(--tp)}
+.dd-fb-actions{margin-left:auto;display:flex;gap:8px}
+.dd-btn{font:500 12px Inter,system-ui;padding:6px 12px;border:1px solid var(--border);
+  border-radius:8px;background:var(--card);color:var(--tp);cursor:pointer}
+.dd-btn:hover{background:var(--hover);border-color:var(--border-strong)}
+.dd-subtabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.dd-subtab{background:none;border:none;color:var(--ts);padding:9px 16px;font:500 12.5px Inter,system-ui;
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.dd-subtab:hover{color:var(--tp)}
+.dd-subtab.on{color:var(--tp);border-bottom-color:var(--tp)}
+.dd-count{color:var(--tm);font-variant-numeric:tabular-nums}
+.dd-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.dd-controls input{font:400 12.5px Inter,system-ui;padding:7px 10px;border:1px solid var(--border);
+  border-radius:8px;background:var(--card);color:var(--tp);min-width:240px}
+.dd-controls input:focus{outline:none;border-color:var(--border-strong)}
+.dd-rowcount{font-size:12px;color:var(--tm);font-variant-numeric:tabular-nums;margin-left:auto}
+.dd-note{font-size:12px;color:var(--ts);margin:0 0 10px}
+.dd-empty{padding:28px;text-align:center;color:var(--tm);font-size:13px;
+  background:var(--card);border:1px solid var(--border);border-radius:12px}
+</style>
+"""
 
 BADGE = {
     "Exact match": "ok", "Fully reconciled": "ok",
@@ -457,6 +486,51 @@ def _count(q, name):
     return 0
 
 
+# ------------------------------------------------------------------- page 7
+
+def page7(R):
+    return """
+    <div class="main">
+      <div class="section-eyebrow">All source rows</div>
+      <h2 class="section-headline">Document detail</h2>
+      <p class="section-sub">The underlying rows of all three datasets in their native form. Click any
+         figure on another page to open this page filtered to exactly the documents behind it.</p>
+      <div class="dd-filterbar" id="dd-filterbar">
+        <span class="dd-fb-text">Showing all documents</span>
+        <div class="dd-fb-actions">
+          <button class="dd-btn dd-clear" id="dd-clear" style="display:none">Clear filter</button>
+          <button class="dd-btn dd-back" id="dd-back" style="display:none">Back</button>
+        </div>
+      </div>
+      <div class="dd-subtabs">
+        <button class="dd-subtab on" id="dd-subtab-gl">GL register <span class="dd-count"></span></button>
+        <button class="dd-subtab" id="dd-subtab-ar">Sales register <span class="dd-count"></span></button>
+        <button class="dd-subtab" id="dd-subtab-ei">E-invoice <span class="dd-count"></span></button>
+      </div>
+      <div class="dd-controls">
+        <input type="text" id="dd-search" placeholder="Search displayed columns">
+        <button class="dd-btn" id="dd-grain" style="display:none">Voucher level</button>
+        <button class="dd-btn" id="dd-colmode">All columns</button>
+        <button class="dd-btn" id="dd-export">Export CSV</button>
+        <span class="dd-rowcount" id="dd-rowcount"></span>
+      </div>
+      <div id="dd-body"></div>
+    </div>"""
+
+
+def _detail_payload(R):
+    d = R["detail"]
+    out = {}
+    for name in ("gl", "ar", "ei"):
+        ds = d[name]
+        out[name] = {
+            "essential": ds["essential"], "all": ds["all"], "numeric": ds["numeric"],
+            "tooltips": ds["tooltips"], "rows": ds["rows"], "total": ds["total"],
+            "doclevel_labels": ds.get("doclevel_labels", []),
+        }
+    return out
+
+
 # ------------------------------------------------------------------- assemble
 
 def build(R: dict, out_path: str) -> str:
@@ -464,15 +538,18 @@ def build(R: dict, out_path: str) -> str:
         style = fh.read()
     with open(os.path.join(HERE, "_script_block.html"), encoding="utf-8") as fh:
         script = fh.read()
+    with open(os.path.join(HERE, "detail.js"), encoding="utf-8") as fh:
+        detail_js = fh.read()
     S = prep(R)
 
     tabs = [("p1", "Executive summary"), ("p2", "GL vs AR"), ("p3", "E-invoice vs AR"),
-            ("p4", "Three-way assessment"), ("p5", "Customer view"), ("p6", "Data quality")]
+            ("p4", "Three-way assessment"), ("p5", "Customer view"), ("p6", "Data quality"),
+            ("p7", "Document detail")]
     tabbar = "".join(f'<button class="tab{" on" if i == 0 else ""}" data-p="{p}">{t}</button>'
                      for i, (p, t) in enumerate(tabs))
 
     pages = [("p1", page1(R, S)), ("p2", page2(R)), ("p3", page3(R)),
-             ("p4", page4(R)), ("p5", page5(R)), ("p6", page6(R))]
+             ("p4", page4(R)), ("p5", page5(R)), ("p6", page6(R)), ("p7", page7(R))]
     pages_html = "".join(
         f'<div class="page{" on" if i == 0 else ""}" id="{pid}">{content}</div>'
         for i, (pid, content) in enumerate(pages))
@@ -484,6 +561,7 @@ def build(R: dict, out_path: str) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sales reconciliation</title>
 {style}
+{DETAIL_CSS}
 </head>
 <body>
 <div id="app">
@@ -508,6 +586,11 @@ def build(R: dict, out_path: str) -> str:
   </div>
 </div>
 {script}
+<script>window.__DETAIL__ = {json.dumps(_detail_payload(R), ensure_ascii=False)};
+window.__FILTER__ = null;
+function showDetailPage(){{var t=document.querySelector('.tab[data-p="p7"]');if(t)t.click();}}
+</script>
+<script>{detail_js}</script>
 </body>
 </html>"""
     with open(out_path, "w", encoding="utf-8") as fh:
