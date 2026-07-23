@@ -1,0 +1,31 @@
+{
+  "country": "AE",
+  "pack_version": "1.0.0",
+  "completeness": "partial",
+  "currency": "AED",
+  "minor_unit_exponent": 2,
+  "tax_point_rule": "DOC_DATE",
+  "tax_rates": [
+    {"code": "S5", "rate": "0.05", "category": "STANDARD"},
+    {"code": "Z0", "rate": "0.00", "category": "ZERO"},
+    {"code": "EX", "rate": "0.00", "category": "EXEMPT"}
+  ],
+  "tax_categories": ["STANDARD", "ZERO", "EXEMPT", "OOS"],
+  "b2c_consolidation": {
+    "permitted": true,
+    "max_aggregation_window_days": 31,
+    "reporting_deadline_rule": "TODO",
+    "requires_individual_on_request": true
+  },
+  "einv_required_when": {
+    "segments": ["B2B", "B2G", "EXPORT"],
+    "min_value_threshold_minor": 0,
+    "excluded_doc_classes": ["PROFORMA"]
+  },
+  "tin_format": {"regex": "^[0-9]{15}$", "checksum": null},
+  "credit_note_requires_original_ref": true,
+  "advance_payment_taxable": "TODO",
+  "tolerances_override": {"rounding_abs_minor_per_doc": 2},
+  "exemption_codes": ["E01"],
+  "return_lines": {"taxable_supplies": "TODO", "output_tax": "TODO"}
+}
