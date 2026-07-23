@@ -1,0 +1,74 @@
+{
+  "config": {
+    "period_basis": "voucher_date",
+    "tolerance": {
+      "_note": "per document: 2 halalas for rounding, or 0.05 percent of value, whichever is larger",
+      "abs_halalas": 2,
+      "rel_fraction": 0.0005
+    }
+  },
+  "leg1_counts": {
+    "Amount mismatch": 10,
+    "Exact match": 136,
+    "Missing in AR": 15,
+    "Missing in GL": 4,
+    "Out of scope by design": 39
+  },
+  "leg2_counts": {
+    "Amount mismatch": 1,
+    "Exact match": 6,
+    "Missing in AR": 3,
+    "Missing in e-invoice": 129,
+    "Needs review": 0,
+    "Out of period": 17,
+    "Submitted but not accepted": 3,
+    "Suggested combination": 0
+  },
+  "open_decisions": [
+    {
+      "id": "jv_supplies",
+      "text": "Which of the 32 JV rows in the sales register are taxable supplies and which are adjustments."
+    },
+    {
+      "id": "tax_code_o",
+      "text": "Whether tax code O (out of scope), on 573 of 782 rows with a net negative taxable value, is correct or a mapping problem."
+    },
+    {
+      "id": "external_numbers",
+      "text": "Whether documents 58008, 59008, 67008, 68013 come from a separate billing system and need their own number family."
+    },
+    {
+      "id": "vat_only",
+      "text": "Whether the vouchers carrying VAT output with no revenue line are tax-only adjustments or incomplete postings."
+    },
+    {
+      "id": "period_basis",
+      "text": "Whether the reconciled period should follow document date or accounting date, given the two differ across these files."
+    }
+  ],
+  "reconciled_window": {
+    "from": "2025-12-31",
+    "to": "2026-05-19"
+  },
+  "row_counts": {
+    "ar": 782,
+    "einvoice_deduped": 38,
+    "einvoice_raw": 39,
+    "gl": 830
+  },
+  "set_sizes": {
+    "set1": 316,
+    "set2": 279,
+    "set3_non_test": 30
+  },
+  "threeway_counts": {
+    "Billed but no revenue posted": 0,
+    "Fully reconciled": 6,
+    "Not a supply": 4,
+    "Not booked": 6,
+    "Not e-invoiced": 139,
+    "Out of scope by design": 39,
+    "Reconciled with differences": 1,
+    "Revenue posted, not billed": 15
+  }
+}

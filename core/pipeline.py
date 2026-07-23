@@ -7,7 +7,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-from core import ingest, scope as scope_mod, sets, leg1_gl_vs_ar, leg2_einv_vs_ar
+from core import (ingest, scope as scope_mod, sets, leg1_gl_vs_ar, leg2_einv_vs_ar,
+                  threeway as threeway_mod, customer_view, quality)
 
 
 def run(cfg: dict, gl_path: str, ar_path: str, einv_path: str,
@@ -32,13 +33,18 @@ def run(cfg: dict, gl_path: str, ar_path: str, einv_path: str,
 
     leg1 = leg1_gl_vs_ar.run(set1, set2, eng, frm, to)
     leg2 = leg2_einv_vs_ar.run(ei, set2, eng, ksa, frm, to)
+    threeway = threeway_mod.derive(leg1, leg2)
 
-    return {
-        "cfg": cfg,
+    R = {
+        "cfg": cfg, "engine": eng,
         "gl": gl, "ar": ar, "ei": ei, "ei_hist": ei_hist,
         "gla": gla, "ara": ara,
         "set1": set1, "set2": set2,
         "period": period,
         "leg1": leg1,
         "leg2": leg2,
+        "threeway": threeway,
     }
+    R["customers"] = customer_view.build(threeway, ksa)
+    R["quality"] = quality.build(R)
+    return R

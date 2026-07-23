@@ -1,0 +1,11 @@
+source,reason,document,customer,value
+e-invoice,duplicate submission attempt,261200000002,GOOGLE IRELAND LIMITED,11.30
+e-invoice,duplicate submission attempt,261200000002,Google Ireland Limited,11.30
+e-invoice,test data,test-jan-16-1,Ministry of Interior/National Information Center,603150.00
+e-invoice,test data,test-jan-16-2,Ministry of Interior/National Information Center,603150.00
+e-invoice,test data,test-jan-16-3,Ministry of Interior/National Information Center,603150.00
+e-invoice,test data,test-jan-16-4,Ministry of Interior/National Information Center,603150.00
+e-invoice,test data,test-jan-20-1,Ministry of Interior/National Information Center,603150.00
+e-invoice,test data,test-jan-20-2,Ministry of Interior/National Information Center,603150.00
+e-invoice,test data,test-jan-20-3,Ministry of Interior/National Information Center,603150.00
+e-invoice,test data,test-jan-20-4,Ministry of Interior/National Information Center,603150.00

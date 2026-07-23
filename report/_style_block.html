@@ -1,0 +1,157 @@
+<style>
+:root{
+  --chrome-bg:#0E1420; --chrome-text:#E6EAF2; --chrome-muted:#8A97A8; --chrome-line:#2A374C;
+  --navy:#22304A;
+  --surface:#F6F7F9; --card:#FFFFFF; --border:#E3E7EE; --border-strong:#D3D9E2; --hover:#F0F4F9;
+  --tp:#16202E; --ts:#5B6B7F; --tm:#8A97A8;
+  --green:#1E9E6A; --amber:#D98E04; --red:#C6373C;
+  --cat-1:#4A90A4; --cat-2:#B87333; --cat-3:#5A6E8C; --cat-4:#7A5E8A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--surface);
+     color:var(--tp);font-size:13px;line-height:1.5}
+#app{max-width:1440px;margin:0 auto}
+
+/* ---------- chrome ---------- */
+.chrome{background:var(--chrome-bg);color:var(--chrome-text);padding:14px 28px 0}
+.chrome-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-size:15px;font-weight:600}
+.brand small{display:block;font-size:10.5px;font-weight:400;color:var(--chrome-muted);
+             letter-spacing:.05em;text-transform:uppercase;margin-top:2px}
+.chrome-controls{margin-left:auto;display:flex;align-items:center;gap:8px}
+.chrome-pill{background:#1A2333;border:1px solid var(--chrome-line);padding:6px 12px;
+             border-radius:20px;font:500 11px Inter,system-ui;color:var(--chrome-text)}
+.tabbar{display:flex;gap:2px;margin-top:14px;border-bottom:1px solid var(--chrome-line);overflow-x:auto}
+.tab{background:none;border:none;color:#9FB0C6;padding:10px 15px;font:500 12.5px Inter,system-ui;
+     cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tab:hover{color:#E6EAF2}
+.tab.on{color:#fff;border-bottom-color:#fff}
+
+/* ---------- navy summary panel ---------- */
+.briefing{background:var(--navy);color:#EAF0F8;padding:24px 28px}
+.briefing-label{font-size:10.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+                color:#8FA3C0;margin-bottom:10px}
+.briefing-lead{font-size:16px;line-height:1.55;color:#F5F8FC;margin:0 0 10px;max-width:900px}
+.briefing-sub{font-size:13px;color:#B9C8DC;margin:0;max-width:900px}
+
+/* ---------- layout ---------- */
+.main{padding:24px 28px 48px}
+.page{display:none}
+.page.on{display:block}
+.section{margin-bottom:32px}
+.section-eyebrow{font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+                 color:var(--tm);margin-bottom:8px}
+.section-headline{font-size:18px;font-weight:500;margin:0 0 6px;letter-spacing:-.005em}
+.section-sub{font-size:13px;color:var(--ts);margin:0 0 18px;max-width:820px}
+
+/* ---------- metric cards ---------- */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.mcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;
+       display:flex;flex-direction:column;gap:8px;transition:border-color .12s}
+.mcard:hover{border-color:var(--border-strong)}
+.mcard-label{font-size:10.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--tm)}
+.mcard-value{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.25}
+.mcard-value.g{color:var(--green)} .mcard-value.a{color:var(--amber)} .mcard-value.r{color:var(--red)}
+.mcard-note{font-size:12px;color:var(--ts);margin-top:auto}
+.mcard.gap{border-style:dashed;background:transparent}
+.mcard.gap .mcard-value{font-size:14px;font-weight:400;font-style:italic;color:var(--tm)}
+
+/* ---------- status strip (per recon leg) ---------- */
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;
+       background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:18px}
+.strip-cell{padding:14px 16px;border-right:1px solid var(--border);cursor:pointer;transition:background .12s}
+.strip-cell:last-child{border-right:none}
+.strip-cell:hover{background:var(--hover)}
+.strip-cell.on{background:var(--hover);box-shadow:inset 0 -2px 0 var(--tp)}
+.strip-label{font-size:10.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+             color:var(--tm);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.strip-count{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.strip-value{font-size:11.5px;color:var(--ts);font-variant-numeric:tabular-nums;margin-top:2px}
+
+/* ---------- filter bar ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.filters input,.filters select{font:400 12.5px Inter,system-ui;padding:7px 10px;
+  border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--tp)}
+.filters input{min-width:220px}
+.filters input:focus,.filters select:focus{outline:none;border-color:var(--border-strong)}
+.filter-note{margin-left:auto;font-size:12px;color:var(--tm);font-variant-numeric:tabular-nums}
+
+/* ---------- data table ---------- */
+.tablewrap{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:auto;max-height:620px}
+table.dt{width:100%;border-collapse:collapse;font-size:12.5px}
+table.dt thead th{position:sticky;top:0;z-index:2;background:#FAFBFC;text-align:left;
+  font:500 10.5px Inter,system-ui;letter-spacing:.05em;text-transform:uppercase;color:var(--tm);
+  padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+table.dt thead th.num{text-align:right}
+table.dt thead th.grp{background:#F2F5F8;border-left:1px solid var(--border);color:var(--ts)}
+table.dt tbody td{padding:9px 12px;border-bottom:1px solid #F0F2F5;white-space:nowrap;vertical-align:top}
+table.dt tbody td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.dt tbody td.grp{border-left:1px solid var(--border)}
+table.dt tbody tr:hover{background:var(--hover)}
+table.dt tbody tr.expandable{cursor:pointer}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px}
+.muted{color:var(--tm)}
+.wrapcell{white-space:normal;min-width:180px;max-width:280px}
+.delta.pos{color:var(--red);font-weight:500}
+.delta.zero{color:var(--tm)}
+
+/* expanded detail row */
+tr.detail>td{background:#FBFCFD;padding:0 12px 12px 30px;border-bottom:1px solid var(--border)}
+.detail-inner{padding:12px 0}
+.detail-title{font-size:10.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+              color:var(--tm);margin-bottom:8px}
+table.sub{width:100%;border-collapse:collapse;font-size:11.5px}
+table.sub th{text-align:left;font-weight:500;color:var(--tm);padding:5px 10px;border-bottom:1px solid var(--border)}
+table.sub td{padding:5px 10px;border-bottom:1px solid #F0F2F5}
+table.sub td.num{text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- status badges ---------- */
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:500;white-space:nowrap}
+.badge.ok     {background:#E3F4EC;color:#177A52}   /* exact match, fully reconciled */
+.badge.warn   {background:#FBF0DA;color:#9A6503}   /* mismatch, needs review, suggested */
+.badge.bad    {background:#F9E4E5;color:#A82D31}   /* not e-invoiced, not booked, not accepted */
+.badge.neutral{background:#EDF0F4;color:#5B6B7F}   /* out of scope, not a supply, out of period */
+.badge.info   {background:#E7EFF7;color:#3D5A80}   /* suggested combination, matched on amount */
+
+/* ---------- combination match block ---------- */
+.combo{background:var(--card);border:1px solid var(--border);border-radius:10px;
+       margin-bottom:12px;overflow:hidden}
+.combo-head{padding:12px 16px;background:#FAFBFC;border-bottom:1px solid var(--border);
+            display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.combo-head .mono{font-weight:600;font-size:12.5px}
+.combo-head .amt{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:600}
+.combo-body{padding:4px 16px 12px}
+.combo-row{display:flex;align-items:center;gap:12px;padding:7px 0 7px 22px;
+           border-bottom:1px solid #F0F2F5;position:relative;font-size:12.5px}
+.combo-row::before{content:"";position:absolute;left:8px;top:50%;width:8px;height:1px;background:var(--border-strong)}
+.combo-row .amt{margin-left:auto;font-variant-numeric:tabular-nums}
+.combo-total{display:flex;gap:12px;padding:9px 0 2px 22px;font-weight:600;font-size:12.5px;
+             border-top:1px solid var(--border-strong);margin-top:4px}
+.combo-total .amt{margin-left:auto;font-variant-numeric:tabular-nums}
+.combo-diff{display:flex;gap:12px;padding:4px 0 0 22px;font-size:12px;color:var(--ts)}
+.combo-diff .amt{margin-left:auto;font-variant-numeric:tabular-nums}
+
+/* ---------- three-way presence cells ---------- */
+.present{display:inline-flex;align-items:center;gap:5px;font-size:12px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex:none}
+.dot.y{background:var(--green)} .dot.n{background:var(--red)}
+.dot.p{background:var(--amber)} .dot.x{background:var(--tm)}
+
+/* ---------- error text from ZATCA ---------- */
+.errlist{margin:4px 0 0;padding-left:16px;font-size:11.5px;color:#A82D31;white-space:normal;max-width:520px}
+.errlist li{margin-bottom:3px}
+
+/* ---------- flow visual ---------- */
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;
+      background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.flow-col{text-align:center;padding:8px 12px}
+.flow-col .label{font-size:10.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+                 color:var(--tm);margin-bottom:8px}
+.flow-col .big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.flow-col .sub{font-size:11.5px;color:var(--ts);font-variant-numeric:tabular-nums;margin-top:3px}
+.flow-arrow{display:flex;align-items:center;justify-content:center;padding:0 10px;color:var(--border-strong);font-size:18px}
+
+/* ---------- footnote ---------- */
+.foot{font-size:11.5px;color:var(--tm);padding:18px 28px 32px;max-width:900px}
+</style>

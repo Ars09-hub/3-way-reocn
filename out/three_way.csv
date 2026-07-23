@@ -1,0 +1,211 @@
+voucher_number,document_number,date,customer_name,customer_vat,in_revenue_tax_gl,in_customer_gl,in_einvoice,taxable,vat,three_way_status,what_to_do_next
+261200000020,261200000020,2026-02-05,GOOGLE IRELAND LIMITED,,True,True,Yes,11.30,1.69,Fully reconciled,No action needed
+261200000021,261200000021,2026-02-07,GOOGLE IRELAND LIMITED,,True,True,Yes,11.30,1.69,Fully reconciled,No action needed
+261200000032,261200000032,2026-02-15,GOOGLE IRELAND LIMITED,,True,True,Yes,19.12,2.87,Fully reconciled,No action needed
+261200000059,261200000059,2026-03-31,GOOGLE IRELAND LIMITED,,True,True,Yes,11.30,1.69,Fully reconciled,No action needed
+261400000001,261400000001,2025-12-31,DREAMHACK SPORTS ARABIA - دريم هاك الرياضية العربية,310881493700003,True,True,Yes,51833.60,7775.04,Fully reconciled,No action needed
+261400000007,261400000007,2026-05-19,EFG Arabia Company,310881493700003,True,True,Yes,95749.60,14362.44,Fully reconciled,No action needed
+ADJ. RECEIVABLES A 4075268000001 4075267 N,Adj. Receivables A 4075268000001 4075267 N,2026-01-31,,,False,True,No,0.00,0.00,Not a supply,"No action, journal or clearing entry"
+REVERSES ADJ. RECEIVABLES A 4075268000001 4075267 N 14-04-26 14:18:37,Reverses Adj. Receivables A 4075268000001 4075267 N 14-04-26 14:18:37,2026-03-31,,,False,True,No,0.00,0.00,Not a supply,"No action, journal or clearing entry"
+ADJ. RECEIVABLES A 4074263000001 4074262 N,Adj. Receivables A 4074263000001 4074262 N,2026-01-31,,,False,True,No,0.00,0.00,Not a supply,"No action, journal or clearing entry"
+REVERSES ADJ. RECEIVABLES A 4074263000001 4074262 N 14-04-26 13:43:03,Reverses Adj. Receivables A 4074263000001 4074262 N 14-04-26 13:43:03,2026-03-31,,,False,True,No,0.00,0.00,Not a supply,"No action, journal or clearing entry"
+,251100000082,2025-12-31,MIRAI ARABIAN INTERNATIONAL COMPANY LIMITED,312205654500003,False,False,Yes,1119313.18,167896.98,Not booked,"No accounting entry found, investigate"
+,251100000083,2025-12-31,DREAMHACK SPORTS ARABIA - دريم هاك الرياضية العربية,310881493700003,False,False,Yes,889918.58,133487.79,Not booked,"No accounting entry found, investigate"
+,251200000274,2025-12-31,Google Ireland Limited,,False,False,Yes,11.30,1.70,Not booked,"No accounting entry found, investigate"
+,59008,2025-12-31,Electronic Gaming Development Company,311122545310003,False,False,Not accepted,55553.91,0.00,Not booked,Investigate failed submission and resubmit
+,62007,2026-04-01,Electronic Gaming Development Company,311122545310003,False,False,Not accepted,38812.50,0.00,Not booked,Investigate failed submission and resubmit
+,CM-251100000013,2025-12-31,Saudi Awal Bank ,,False,False,Not accepted,2971961.91,0.00,Not booked,Investigate failed submission and resubmit
+261100000025,261100000025,2026-04-26,MIRAI ARABIAN INTERNATIONAL COMPANY LIMITED,312205654500003,True,True,No,290166.80,43525.02,Not e-invoiced,Report to ZATCA
+261100000026,261100000026,2026-04-26,EFG Arabia Company,310881493700003,True,True,No,24233.93,3635.09,Not e-invoiced,Report to ZATCA
+261200000002,261200000002,2026-01-22,GOOGLE IRELAND LIMITED,,True,True,No,11.30,1.69,Not e-invoiced,Report to ZATCA
+261200000003,261200000003,2026-01-05,APPLE INC ,1234,True,True,No,2983.03,0.00,Not e-invoiced,Report to ZATCA
+261200000004,261200000004,2026-01-11,INMOBI PTE. LTD.,200811408G,True,True,No,6250.75,0.00,Not e-invoiced,Report to ZATCA
+261200000004,CM-261200000004,2026-01-29,Facebook UK LTD	,,True,True,No,-22868.00,0.00,Not e-invoiced,Report to ZATCA
+261200000005,261200000005,2026-01-13,ADLOGIC TECHNOLOGY PTE,,True,True,No,33548.10,0.00,Not e-invoiced,Report to ZATCA
+261200000005,CM-261200000005,2026-01-29,INMOBI PTE. LTD.,200811408G,True,True,No,-6387.00,0.00,Not e-invoiced,Report to ZATCA
+261200000006,261200000006,2026-01-15,Air Smart Advertising Solutions FZ-LLC,,True,True,No,2604.35,0.00,Not e-invoiced,Report to ZATCA
+261200000006,CM-261200000006,2026-01-29,APPLE INC ,1234,True,True,No,-2990.85,0.00,Not e-invoiced,Report to ZATCA
+261200000007,261200000007,2026-01-26,Facebook UK LTD	,,True,True,No,23012.15,0.00,Not e-invoiced,Report to ZATCA
+261200000007,CM-261200000007,2026-02-28,GOOGLE IRELAND LIMITED,,True,True,No,-48243.64,0.00,Not e-invoiced,Report to ZATCA
+261200000008,261200000008,2026-01-31,GOOGLE IRELAND LIMITED,,True,True,No,16612.00,0.00,Not e-invoiced,Report to ZATCA
+261200000008,CM-261200000008,2026-02-28,GOOGLE IRELAND LIMITED,,True,True,No,-16142.85,0.00,Not e-invoiced,Report to ZATCA
+261200000009,261200000009,2026-01-31,Unity Technologies SF,,True,True,No,16367.00,0.00,Not e-invoiced,Report to ZATCA
+261200000009,CM-261200000009,2026-02-28,ADLOGIC TECHNOLOGY PTE,,True,True,No,-51354.00,0.00,Not e-invoiced,Report to ZATCA
+261200000010,261200000010,2026-01-31,IronSource Mobile Ltd,,True,True,No,3904.00,0.00,Not e-invoiced,Report to ZATCA
+261200000010,CM-261200000010,2026-02-28,GOOGLE IRELAND LIMITED,,True,True,No,-16612.00,0.00,Not e-invoiced,Report to ZATCA
+261200000011,261200000011,2026-01-31,ADLOGIC TECHNOLOGY PTE,,True,True,No,3892.00,0.00,Not e-invoiced,Report to ZATCA
+261200000011,CM-261200000011,2026-02-28,GOOGLE IRELAND LIMITED,,True,True,No,-29467.00,0.00,Not e-invoiced,Report to ZATCA
+261200000012,261200000012,2026-01-31,"LMI, INC.",460784178,True,True,No,2863.00,0.00,Not e-invoiced,Report to ZATCA
+261200000012,CM-261200000012,2026-02-28,GOOGLE IRELAND LIMITED,,True,True,No,-19156.76,0.00,Not e-invoiced,Report to ZATCA
+261200000013,261200000013,2026-01-31,BYTEDANCE PTE. LTD.,,True,True,No,3804.00,0.00,Not e-invoiced,Report to ZATCA
+261200000013,CM-261200000013,2026-02-28,ADLOGIC TECHNOLOGY PTE,,True,True,No,-51490.00,0.00,Not e-invoiced,Report to ZATCA
+261200000014,261200000014,2026-01-31,INMOBI PTE. LTD.,200811408G,True,True,No,3881.00,0.00,Not e-invoiced,Report to ZATCA
+261200000014,CM-261200000014,2026-02-28,Facebook UK LTD	,,True,True,No,-15251.00,0.00,Not e-invoiced,Report to ZATCA
+261200000015,261200000015,2026-01-31,Applovin,,True,True,No,129472.00,0.00,Not e-invoiced,Report to ZATCA
+261200000015,CM-261200000015,2026-02-28,INMOBI PTE. LTD.,200811408G,True,True,No,-5753.00,0.00,Not e-invoiced,Report to ZATCA
+261200000016,261200000016,2026-01-31,Facebook UK LTD	,,True,True,No,15251.00,0.00,Not e-invoiced,Report to ZATCA
+261200000016,CM-261200000016,2026-02-28,APPLE INC ,1234,True,True,No,-7668.00,0.00,Not e-invoiced,Report to ZATCA
+261200000017,CM-261200000017,2026-02-28,IronSource Mobile Ltd,,True,True,No,-5505.00,0.00,Not e-invoiced,Report to ZATCA
+261200000018,CM-261200000018,2026-02-28,IronSource Mobile Ltd,,True,True,No,-6141.00,0.00,Not e-invoiced,Report to ZATCA
+261200000019,CM-261200000019,2026-02-28,Unity Technologies SF,,True,True,No,-18285.00,0.00,Not e-invoiced,Report to ZATCA
+261200000020,CM-261200000020,2026-02-28,GOOGLE IRELAND LIMITED,,True,True,No,-4304.76,0.00,Not e-invoiced,Report to ZATCA
+261200000021,CM-261200000021,2026-02-28,GOOGLE IRELAND LIMITED,,True,True,No,-12864.97,0.00,Not e-invoiced,Report to ZATCA
+261200000022,CM-261200000022,2026-02-11,ADLOGIC TECHNOLOGY PTE,,True,True,No,-13694.40,0.00,Not e-invoiced,Report to ZATCA
+261200000022,261200000022,2026-02-23,GOOGLE IRELAND LIMITED,,True,True,No,16142.85,0.00,Not e-invoiced,Report to ZATCA
+261200000023,261200000023,2026-02-25,GOOGLE IRELAND LIMITED,,True,True,No,48243.64,0.00,Not e-invoiced,Report to ZATCA
+261200000023,CM-261200000023,2026-02-28,IronSource Mobile Ltd,,True,True,No,-1591.00,0.00,Not e-invoiced,Report to ZATCA
+261200000024,261200000024,2026-02-11,ADLOGIC TECHNOLOGY PTE,,True,True,No,51354.00,0.00,Not e-invoiced,Report to ZATCA
+261200000024,CM-261200000024,2026-03-31,Unity Technologies SF,,True,True,No,-16367.00,0.00,Not e-invoiced,Report to ZATCA
+261200000025,261200000025,2026-02-24,Facebook UK LTD	,,True,True,No,15993.83,0.00,Not e-invoiced,Report to ZATCA
+261200000025,CM-261200000025,2026-03-31,Unity Technologies SF,,True,True,No,-25532.00,0.00,Not e-invoiced,Report to ZATCA
+261200000026,261200000026,2026-02-19,Air Smart Advertising Solutions FZ-LLC,,True,True,No,1146.37,0.00,Not e-invoiced,Report to ZATCA
+261200000026,CM-261200000026,2026-03-31,Facebook UK LTD	,,True,True,No,-10301.25,0.00,Not e-invoiced,Report to ZATCA
+261200000027,261200000027,2026-02-09,INMOBI PTE. LTD.,200811408G,True,True,No,5618.27,0.00,Not e-invoiced,Report to ZATCA
+261200000027,CM-261200000027,2026-03-31,ADLOGIC TECHNOLOGY PTE,,True,True,No,-3892.00,0.00,Not e-invoiced,Report to ZATCA
+261200000028,261200000028,2026-02-02,APPLE INC ,1234,True,True,No,7788.29,0.00,Not e-invoiced,Report to ZATCA
+261200000028,CM-261200000028,2026-03-31,ADLOGIC TECHNOLOGY PTE,,True,True,No,-17778.75,0.00,Not e-invoiced,Report to ZATCA
+261200000029,261200000029,2026-02-01,IronSource Mobile Ltd,,True,True,No,5386.87,0.00,Not e-invoiced,Report to ZATCA
+261200000029,CM-261200000029,2026-03-31,ADLOGIC TECHNOLOGY PTE,,True,True,No,-10058.00,0.00,Not e-invoiced,Report to ZATCA
+261200000030,261200000030,2026-02-01,Unity Technologies SF,,True,True,No,18005.15,0.00,Not e-invoiced,Report to ZATCA
+261200000030,CM-261200000030,2026-03-31,INMOBI PTE. LTD.,200811408G,True,True,No,-9433.00,0.00,Not e-invoiced,Report to ZATCA
+261200000031,CM-261200000031,2026-03-31,Applovin,,True,True,No,-186984.00,0.00,Not e-invoiced,Report to ZATCA
+261200000032,CM-261200000032,2026-03-31,Applovin,,True,True,No,-129472.00,0.00,Not e-invoiced,Report to ZATCA
+261200000033,261200000033,2026-02-25,IronSource Mobile Ltd,,True,True,No,1591.00,0.00,Not e-invoiced,Report to ZATCA
+261200000033,CM-261200000033,2026-03-31,Applovin,,True,True,No,-60386.25,0.00,Not e-invoiced,Report to ZATCA
+261200000034,261200000034,2026-02-23,GOOGLE IRELAND LIMITED,,True,True,No,4304.76,0.00,Not e-invoiced,Report to ZATCA
+261200000034,CM-261200000034,2026-03-31,BYTEDANCE PTE. LTD.,,True,True,No,-4706.00,0.00,Not e-invoiced,Report to ZATCA
+261200000035,261200000035,2026-02-25,GOOGLE IRELAND LIMITED,,True,True,No,12864.97,0.00,Not e-invoiced,Report to ZATCA
+261200000035,CM-261200000035,2026-03-31,BYTEDANCE PTE. LTD.,,True,True,No,-6636.00,0.00,Not e-invoiced,Report to ZATCA
+261200000036,261200000036,2026-02-11,ADLOGIC TECHNOLOGY PTE,,True,True,No,13694.40,0.00,Not e-invoiced,Report to ZATCA
+261200000036,CM-261200000036,2026-03-31,BYTEDANCE PTE. LTD.,,True,True,No,-3804.00,0.00,Not e-invoiced,Report to ZATCA
+261200000037,261200000037,2026-02-23,GOOGLE IRELAND LIMITED,,True,True,No,16142.85,0.00,Not e-invoiced,Report to ZATCA
+261200000037,CM-261200000037,2026-03-31,BYTEDANCE PTE. LTD.,,True,True,No,-1983.75,0.00,Not e-invoiced,Report to ZATCA
+261200000038,261200000038,2026-02-25,GOOGLE IRELAND LIMITED,,True,True,No,48243.64,0.00,Not e-invoiced,Report to ZATCA
+261200000038,CM-261200000038,2026-03-31,"LMI, INC.",460784178,True,True,No,-1041.71,0.00,Not e-invoiced,Report to ZATCA
+261200000039,261200000039,2026-02-11,ADLOGIC TECHNOLOGY PTE,,True,True,No,51354.00,0.00,Not e-invoiced,Report to ZATCA
+261200000039,CM-261200000039,2026-03-31,"LMI, INC.",460784178,True,True,No,-2412.00,0.00,Not e-invoiced,Report to ZATCA
+261200000040,261200000040,2026-02-25,IronSource Mobile Ltd,,True,True,No,5966.25,0.00,Not e-invoiced,Report to ZATCA
+261200000040,CM-261200000040,2026-03-31,"LMI, INC.",460784178,True,True,No,-2445.00,0.00,Not e-invoiced,Report to ZATCA
+261200000041,261200000041,2026-02-28,Facebook UK LTD	,,True,True,No,10301.25,0.00,Not e-invoiced,Report to ZATCA
+261200000041,CM-261200000041,2026-03-31,"LMI, INC.",460784178,True,True,No,-4418.00,0.00,Not e-invoiced,Report to ZATCA
+261200000042,261200000042,2026-02-28,GOOGLE IRELAND LIMITED,,True,True,No,35426.25,0.00,Not e-invoiced,Report to ZATCA
+261200000042,CM-261200000042,2026-03-31,"LMI, INC.",460784178,True,True,No,-2863.00,0.00,Not e-invoiced,Report to ZATCA
+261200000043,261200000043,2026-02-28,Unity Technologies SF,,True,True,No,8497.50,0.00,Not e-invoiced,Report to ZATCA
+261200000043,CM-261200000043,2026-04-20,BYTEDANCE PTE. LTD.,,True,True,No,-1796.25,0.00,Not e-invoiced,Report to ZATCA
+261200000044,261200000044,2026-02-28,ADLOGIC TECHNOLOGY PTE,,True,True,No,17778.75,0.00,Not e-invoiced,Report to ZATCA
+261200000044,CM-261200000044,2026-04-20,Applovin,,True,True,No,-47707.50,0.00,Not e-invoiced,Report to ZATCA
+261200000045,261200000045,2026-02-28,BYTEDANCE PTE. LTD.,,True,True,No,1983.75,0.00,Not e-invoiced,Report to ZATCA
+261200000045,CM-261200000045,2026-04-20,INMOBI PTE. LTD.,200811408G,True,True,No,-3881.00,0.00,Not e-invoiced,Report to ZATCA
+261200000046,261200000046,2026-02-28,INMOBI PTE. LTD.,200811408G,True,True,No,1938.75,0.00,Not e-invoiced,Report to ZATCA
+261200000046,CM-261200000046,2026-04-26,Facebook UK LTD	,,True,True,No,-8467.50,0.00,Not e-invoiced,Report to ZATCA
+261200000047,261200000047,2026-02-28,Applovin,,True,True,No,60386.25,0.00,Not e-invoiced,Report to ZATCA
+261200000048,261200000048,2026-03-30,Unity Technologies SF,,True,True,No,15096.56,0.00,Not e-invoiced,Report to ZATCA
+261200000049,261200000049,2026-03-23,Facebook UK LTD	,,True,True,No,10536.00,0.00,Not e-invoiced,Report to ZATCA
+261200000050,261200000050,2026-03-23,GOOGLE IRELAND LIMITED,,True,True,No,9786.26,0.00,Not e-invoiced,Report to ZATCA
+261200000051,261200000051,2026-03-23,ADLOGIC TECHNOLOGY PTE,,True,True,No,35567.81,0.00,Not e-invoiced,Report to ZATCA
+261200000052,261200000052,2026-03-15,INMOBI PTE. LTD.,200811408G,True,True,No,9320.59,0.00,Not e-invoiced,Report to ZATCA
+261200000053,261200000053,2026-03-15,Applovin,,True,True,No,376617.64,0.00,Not e-invoiced,Report to ZATCA
+261200000054,261200000054,2026-03-12,BYTEDANCE PTE. LTD.,,True,True,No,1985.21,0.00,Not e-invoiced,Report to ZATCA
+261200000055,261200000055,2026-03-11,BYTEDANCE PTE. LTD.,,True,True,No,15146.51,0.00,Not e-invoiced,Report to ZATCA
+261200000056,261200000056,2026-03-04,"LMI, INC.",460784178,True,True,No,12906.30,0.00,Not e-invoiced,Report to ZATCA
+261200000057,261200000057,2026-03-09,APPLE INC ,1234,True,True,No,9591.44,0.00,Not e-invoiced,Report to ZATCA
+261200000058,261200000058,2026-03-03,Unity Technologies SF,,True,True,No,25169.03,0.00,Not e-invoiced,Report to ZATCA
+261200000060,261200000060,2026-03-31,Facebook UK LTD	,,True,True,No,8467.50,0.00,Not e-invoiced,Report to ZATCA
+261200000061,261200000061,2026-03-31,GOOGLE IRELAND LIMITED,,True,True,No,23133.75,0.00,Not e-invoiced,Report to ZATCA
+261200000062,261200000062,2026-03-31,Unity Technologies SF,,True,True,No,8557.50,0.00,Not e-invoiced,Report to ZATCA
+261200000063,261200000063,2026-03-31,ADLOGIC TECHNOLOGY PTE,,True,True,No,16953.75,0.00,Not e-invoiced,Report to ZATCA
+261200000064,261200000064,2026-03-31,"LMI, INC.",460784178,True,True,No,1166.25,0.00,Not e-invoiced,Report to ZATCA
+261200000065,261200000065,2026-03-31,BYTEDANCE PTE. LTD.,,True,True,No,1796.25,0.00,Not e-invoiced,Report to ZATCA
+261200000066,261200000066,2026-03-31,INMOBI PTE. LTD.,200811408G,True,True,No,1308.75,0.00,Not e-invoiced,Report to ZATCA
+261200000067,261200000067,2026-03-31,Applovin,,True,True,No,47707.50,0.00,Not e-invoiced,Report to ZATCA
+261200000068,261200000068,2026-03-31,APPLE INC ,1234,True,True,No,577.50,0.00,Not e-invoiced,Report to ZATCA
+261200000069,261200000069,2026-04-16,BYTEDANCE PTE. LTD.,,True,True,No,1795.95,0.00,Not e-invoiced,Report to ZATCA
+261200000070,261200000070,2026-04-16,Applovin,,True,True,No,47650.61,0.00,Not e-invoiced,Report to ZATCA
+261200000071,261200000071,2026-04-14,ADLOGIC TECHNOLOGY PTE,,True,True,No,17644.76,0.00,Not e-invoiced,Report to ZATCA
+261200000072,261200000072,2026-04-12,INMOBI PTE. LTD.,200811408G,True,True,No,3816.04,0.00,Not e-invoiced,Report to ZATCA
+261200000073,261200000073,2026-04-07,APPLE INC ,1234,True,True,No,1226.33,0.00,Not e-invoiced,Report to ZATCA
+261200000074,261200000074,2026-04-22,GOOGLE IRELAND LIMITED,,True,True,No,9140.36,0.00,Not e-invoiced,Report to ZATCA
+261200000075,261200000075,2026-04-23,Facebook UK LTD	,,True,True,No,8675.10,0.00,Not e-invoiced,Report to ZATCA
+261200000076,261200000076,2026-04-28,IronSource Mobile Ltd,,True,True,No,2238.53,0.00,Not e-invoiced,Report to ZATCA
+261200000077,261200000077,2026-04-30,GOOGLE IRELAND LIMITED,,True,True,No,37215.00,0.00,Not e-invoiced,Report to ZATCA
+261200000078,261200000078,2026-04-30,Unity Technologies SF,,True,True,No,6262.50,0.00,Not e-invoiced,Report to ZATCA
+261200000079,261200000079,2026-04-30,ADLOGIC TECHNOLOGY PTE,,True,True,No,11250.00,0.00,Not e-invoiced,Report to ZATCA
+261200000080,261200000080,2026-04-30,"LMI, INC.",460784178,True,True,No,720.00,0.00,Not e-invoiced,Report to ZATCA
+261200000081,261200000081,2026-04-30,BYTEDANCE PTE. LTD.,,True,True,No,1788.75,0.00,Not e-invoiced,Report to ZATCA
+261200000082,261200000082,2026-04-30,INMOBI PTE. LTD.,200811408G,True,True,No,1222.50,0.00,Not e-invoiced,Report to ZATCA
+261200000083,261200000083,2026-04-30,Applovin,,True,True,No,40961.25,0.00,Not e-invoiced,Report to ZATCA
+261200000084,261200000084,2026-04-30,Facebook UK LTD	,,True,True,No,8017.50,0.00,Not e-invoiced,Report to ZATCA
+261200000088,261200000088,2026-05-18,BYTEDANCE PTE. LTD.,,True,True,No,1586.78,0.00,Not e-invoiced,Report to ZATCA
+261200000089,261200000089,2026-05-17,BYTEDANCE PTE. LTD.,,True,True,No,6277.84,0.00,Not e-invoiced,Report to ZATCA
+261200000090,261200000090,2026-05-17,Applovin,,True,True,No,40936.84,0.00,Not e-invoiced,Report to ZATCA
+261200000091,261200000091,2026-05-13,ADLOGIC TECHNOLOGY PTE,,True,True,No,16827.00,0.00,Not e-invoiced,Report to ZATCA
+261200000092,261200000092,2026-05-11,INMOBI PTE. LTD.,200811408G,True,True,No,1667.48,0.00,Not e-invoiced,Report to ZATCA
+261200000093,261200000093,2026-05-04,"LMI, INC.",460784178,True,True,No,4106.25,0.00,Not e-invoiced,Report to ZATCA
+261200000094,261200000094,2026-05-04,APPLE INC ,1234,True,True,No,573.34,0.00,Not e-invoiced,Report to ZATCA
+261200000095,261200000095,2026-05-04,APPLE INC ,1234,True,True,No,3071.48,0.00,Not e-invoiced,Report to ZATCA
+261200000110,261200000110,2026-05-04,APPLE INC ,1234,True,True,No,819.06,0.00,Not e-invoiced,Report to ZATCA
+251300000007,251300000007,2026-01-01,MIRAI ARABIAN INTERNATIONAL COMPANY LIMITED,312205654500003,True,True,No,3902425.30,0.00,Not e-invoiced,Report to ZATCA
+251300000007,251300000007,2026-02-01,MIRAI ARABIAN INTERNATIONAL COMPANY LIMITED,312205654500003,True,True,No,3902425.30,0.00,Not e-invoiced,Report to ZATCA
+251300000007,251300000007,2026-03-01,MIRAI ARABIAN INTERNATIONAL COMPANY LIMITED,312205654500003,True,True,No,3902425.30,0.00,Not e-invoiced,Report to ZATCA
+251300000007,251300000007,2026-04-01,MIRAI ARABIAN INTERNATIONAL COMPANY LIMITED,312205654500003,True,True,No,0.00,0.00,Not e-invoiced,Report to ZATCA
+251300000007,251300000007,2026-05-01,MIRAI ARABIAN INTERNATIONAL COMPANY LIMITED,312205654500003,True,True,No,0.00,0.00,Not e-invoiced,Report to ZATCA
+251400000038,251400000038,2026-01-01,DREAMHACK SPORTS ARABIA - دريم هاك الرياضية العربية,310881493700003,True,True,No,2356436.25,0.00,Not e-invoiced,Report to ZATCA
+251400000038,251400000038,2026-02-01,DREAMHACK SPORTS ARABIA - دريم هاك الرياضية العربية,310881493700003,True,True,No,2356436.25,0.00,Not e-invoiced,Report to ZATCA
+251400000038,251400000038,2026-03-01,DREAMHACK SPORTS ARABIA - دريم هاك الرياضية العربية,310881493700003,True,True,No,2356436.25,0.00,Not e-invoiced,Report to ZATCA
+251400000038,251400000038,2026-04-01,EFG Arabia Company,310881493700003,True,True,No,0.00,0.00,Not e-invoiced,Report to ZATCA
+251400000038,251400000038,2026-05-01,EFG Arabia Company,310881493700003,True,True,No,0.00,0.00,Not e-invoiced,Report to ZATCA
+261100000001,261100000001,2026-01-31,Saudi National Bank ,300002471110003,True,True,No,194.25,0.00,Out of scope by design,"No action, out of scope"
+261100000002,261100000002,2026-01-31,Saudi Awal Bank ,,True,True,No,4673.45,0.00,Out of scope by design,"No action, out of scope"
+261100000003,261100000003,2026-01-31,AL Rajhi Bank,300000434710003,True,True,No,2571.06,0.00,Out of scope by design,"No action, out of scope"
+261100000004,261100000004,2026-01-31,Saudi Awal Bank ,,True,True,No,98645.91,0.00,Out of scope by design,"No action, out of scope"
+261100000005,261100000005,2026-01-31,Saudi Awal Bank ,,True,True,No,8202.23,0.00,Out of scope by design,"No action, out of scope"
+261100000006,261100000006,2026-01-31,Saudi Awal Bank ,,True,True,No,115086.90,0.00,Out of scope by design,"No action, out of scope"
+261100000007,261100000007,2026-02-28,AL Rajhi Bank,300000434710003,True,True,No,8.06,0.00,Out of scope by design,"No action, out of scope"
+261100000008,261100000008,2026-02-28,Saudi Awal Bank ,,True,True,No,1402500.00,0.00,Out of scope by design,"No action, out of scope"
+261100000009,261100000009,2026-02-28,Saudi Awal Bank ,,True,True,No,935000.00,0.00,Out of scope by design,"No action, out of scope"
+261100000010,261100000010,2026-02-28,Saudi Awal Bank ,,True,True,No,233750.00,0.00,Out of scope by design,"No action, out of scope"
+261100000011,261100000011,2026-02-28,Saudi National Bank ,300002471110003,True,True,No,104.78,0.00,Out of scope by design,"No action, out of scope"
+261100000012,261100000012,2026-03-30,Saudi National Bank ,300002471110003,True,True,No,154.50,0.00,Out of scope by design,"No action, out of scope"
+261100000013,261100000013,2026-03-30,AL Rajhi Bank,300000434710003,True,True,No,7.28,0.00,Out of scope by design,"No action, out of scope"
+261100000014,261100000014,2026-03-30,Saudi Awal Bank ,,True,True,No,813611.11,0.00,Out of scope by design,"No action, out of scope"
+261100000015,261100000015,2026-03-30,Saudi Awal Bank ,,True,True,No,406805.56,0.00,Out of scope by design,"No action, out of scope"
+261100000016,261100000016,2026-03-30,Saudi Awal Bank ,,True,True,No,406805.56,0.00,Out of scope by design,"No action, out of scope"
+261100000017,261100000017,2026-03-30,Saudi Awal Bank ,,True,True,No,203402.78,0.00,Out of scope by design,"No action, out of scope"
+261100000018,261100000018,2026-03-30,Saudi Awal Bank ,,True,True,No,293333.33,0.00,Out of scope by design,"No action, out of scope"
+261100000019,261100000019,2026-03-30,Saudi Awal Bank ,,True,True,No,293333.33,0.00,Out of scope by design,"No action, out of scope"
+261100000020,261100000020,2026-03-30,Saudi Awal Bank ,,True,True,No,146666.67,0.00,Out of scope by design,"No action, out of scope"
+261100000021,261100000021,2026-03-31,Saudi Awal Bank ,,True,True,No,494284.91,0.00,Out of scope by design,"No action, out of scope"
+261100000027,261100000027,2026-04-26,AL Rajhi Bank,300000434710003,True,True,No,8.06,0.00,Out of scope by design,"No action, out of scope"
+261100000028,261100000028,2026-04-26,Saudi Awal Bank ,,True,True,No,106666.67,0.00,Out of scope by design,"No action, out of scope"
+261100000029,261100000029,2026-04-26,Saudi Awal Bank ,,True,True,No,106666.67,0.00,Out of scope by design,"No action, out of scope"
+261100000030,261100000030,2026-04-26,Saudi Awal Bank ,,True,True,No,53333.33,0.00,Out of scope by design,"No action, out of scope"
+261100000031,261100000031,2026-04-26,Saudi Awal Bank ,,True,True,No,366666.67,0.00,Out of scope by design,"No action, out of scope"
+261100000033,261100000033,2026-05-14,AL Rajhi Bank,300000434710003,True,True,No,8.10,0.00,Out of scope by design,"No action, out of scope"
+CASH POOLING INTEREST YTD MARCH 2026 AS PER KYRIBA REPORTS ADJUSTMENT,Cash Pooling Interest YTD March 2026 as per Kyriba Reports Adjustment,2026-03-31,,,False,True,No,0.00,0.00,Out of scope by design,"No action, out of scope"
+261200000017,261200000017,2026-01-31,Saudi Awal Bank ,,True,True,No,4060.04,0.00,Out of scope by design,"No action, out of scope"
+261200000018,261200000018,2026-01-31,Saudi Awal Bank ,,True,True,No,1724.41,0.00,Out of scope by design,"No action, out of scope"
+261200000019,261200000019,2026-01-31,Saudi Awal Bank ,,True,True,No,761.74,0.00,Out of scope by design,"No action, out of scope"
+261300000001,261300000001,2026-01-31,Saudi Awal Bank ,,True,True,No,1444.85,0.00,Out of scope by design,"No action, out of scope"
+261300000002,261300000002,2026-01-31,Saudi Awal Bank ,,True,True,No,1685.66,0.00,Out of scope by design,"No action, out of scope"
+261400000002,261400000002,2026-01-31,AL Rajhi Bank,300000434710003,True,True,No,1415.28,0.00,Out of scope by design,"No action, out of scope"
+261400000003,261400000003,2026-02-28,AL Rajhi Bank,300000434710003,True,True,No,4.88,0.00,Out of scope by design,"No action, out of scope"
+261400000004,261400000004,2026-03-30,AL Rajhi Bank,300000434710003,True,True,No,5.34,0.00,Out of scope by design,"No action, out of scope"
+261400000005,261400000005,2026-04-26,AL Rajhi Bank,300000434710003,True,True,No,0.31,0.00,Out of scope by design,"No action, out of scope"
+261400000006,261400000006,2026-05-14,AL Rajhi Bank,300000434710003,True,True,No,74.10,0.00,Out of scope by design,"No action, out of scope"
+CASH POOLING INTEREST YTD MARCH 2026 AS PER KYRIBA REPORTS ADJUSTMENT,Cash Pooling Interest YTD March 2026 as per Kyriba Reports Adjustment,2026-03-31,,,False,True,No,0.00,0.00,Out of scope by design,"No action, out of scope"
+261200000031,261200000031,2026-02-10,GOOGLE IRELAND LIMITED,,True,True,Yes,11.30,1.69,Reconciled with differences,Review the difference between the three sets
+61007,61007,2026-04-01,,311122545310003,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+61008,61008,2026-04-01,,311122545310003,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+61009,61009,2026-04-01,,311122545310003,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+62007,62007,2026-04-01,,311122545310003,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+63007,63007,2026-05-14,,311122545310003,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000001,261700000001,2026-04-26,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000002,261700000002,2026-04-26,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000003,261700000003,2026-03-30,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000004,261700000004,2026-03-30,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000005,261700000005,2026-03-29,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000006,261700000006,2026-03-29,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000007,261700000007,2026-04-26,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000008,261700000008,2026-04-26,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000009,261700000009,2026-05-04,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing
+261700000010,261700000010,2026-05-04,,,True,False,No,0.00,0.00,"Revenue posted, not billed",Confirm whether a customer invoice is missing

@@ -1,0 +1,31 @@
+<script>
+// tab switching
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});
+    document.querySelectorAll('.page').forEach(function(x){x.classList.remove('on')});
+    t.classList.add('on');
+    document.getElementById(t.dataset.p).classList.add('on');
+    window.scrollTo(0,0);
+  });
+});
+// expandable rows
+document.querySelectorAll('tr.expandable').forEach(function(r){
+  var d=r.nextElementSibling;
+  if(d&&d.classList.contains('detail')){
+    d.style.display='none';
+    r.addEventListener('click',function(){
+      d.style.display = d.style.display==='none' ? 'table-row' : 'none';
+    });
+  }
+});
+// strip filter highlight
+document.querySelectorAll('.strip').forEach(function(s){
+  s.querySelectorAll('.strip-cell').forEach(function(c){
+    c.addEventListener('click',function(){
+      s.querySelectorAll('.strip-cell').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');
+    });
+  });
+});
+</script>
