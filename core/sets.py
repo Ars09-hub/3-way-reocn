@@ -59,6 +59,7 @@ def build_set1_vouchers(gl_annotated: pd.DataFrame) -> pd.DataFrame:
             "gl_tax_h": int(tax["signed_local"].sum()),
             "has_revenue": len(rev) > 0,
             "has_tax": len(tax) > 0,
+            "gl_keys": sorted(set(g["gl_key"])),
             "line_ids": list(g["line_id"]),
         })
     return pd.DataFrame(rows)
@@ -102,6 +103,7 @@ def build_set2_vouchers(ar_annotated: pd.DataFrame) -> pd.DataFrame:
             "offset_classes": sorted(offsets),
             "only_excluded_offsets": bool(only_excluded),
             "excluded_reasons": list(excl),
+            "ar_keys": sorted(set(g["ar_key"])),
             "line_ids": list(g["line_id"]),
         })
     return pd.DataFrame(rows)

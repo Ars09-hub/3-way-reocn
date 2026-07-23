@@ -59,6 +59,7 @@ def run(ei: pd.DataFrame, set2: pd.DataFrame, engine: dict, ksa: dict, frm, to) 
             "ar_document": a["document_number"], "ar_taxable_h": int(a["ar_taxable_h"]),
             "ar_vat_h": int(a["ar_vat_h"]), "ar_gross_h": int(a["ar_gross_h"]),
             "ar_date": a["voucher_date"], "ar_doc_date": a["document_date"],
+            "ar_keys": list(a["ar_keys"]),
         }
 
     for _, e in ei_ns.iterrows():
@@ -69,7 +70,7 @@ def run(ei: pd.DataFrame, set2: pd.DataFrame, engine: dict, ksa: dict, frm, to) 
             "buyer_name": e["buyer_name_en"], "buyer_vat": e["buyer_vat_n"],
             "einv_taxable_h": int(e["taxable_h"]), "einv_vat_h": int(e["vat_h"]),
             "einv_total_h": int(e["total_h"]), "errors": list(e["errors_list"]),
-            "row_id": e["row_id"],
+            "row_id": e["row_id"], "ei_key": e["ei_key"],
         }
 
         if not e["in_window"]:
@@ -131,6 +132,8 @@ def run(ei: pd.DataFrame, set2: pd.DataFrame, engine: dict, ksa: dict, frm, to) 
                 "ar_taxable_h": int(a["ar_taxable_h"]), "ar_vat_h": int(a["ar_vat_h"]),
                 "ar_gross_h": int(a["ar_gross_h"]), "issue_date": a["voucher_date"],
                 "doc_type": a["document_type"], "matched_how": "No e-invoice",
+                "ar_keys": list(a["ar_keys"]), "tax_code": a["tax_code"],
+                "diff_taxable_h": None, "diff_vat_h": None,
             })
 
     einv_rows = pd.DataFrame(rows)
@@ -213,6 +216,7 @@ def _rec(a):
         "ar_document": a["document_number"], "ar_taxable_h": int(a["ar_taxable_h"]),
         "ar_vat_h": int(a["ar_vat_h"]), "ar_gross_h": int(a["ar_gross_h"]),
         "ar_date": a["voucher_date"], "ar_doc_date": a["document_date"],
+        "ar_keys": list(a["ar_keys"]),
     }
 
 

@@ -18,7 +18,7 @@ def run(cfg: dict, gl_path: str, ar_path: str, einv_path: str,
 
     gl = ingest.load_gl(gl_path)
     ar = ingest.load_ar(ar_path)
-    ei, ei_hist = ingest.load_einvoice(einv_path, ksa)
+    ei_raw, ei, ei_hist = ingest.load_einvoice(einv_path, ksa)
 
     gla = sets.annotate_gl(gl, acc, idx["excluded"])
     ara = sets.annotate_ar(ar, acc, idx["excluded"])
@@ -37,7 +37,7 @@ def run(cfg: dict, gl_path: str, ar_path: str, einv_path: str,
 
     R = {
         "cfg": cfg, "engine": eng,
-        "gl": gl, "ar": ar, "ei": ei, "ei_hist": ei_hist,
+        "gl": gl, "ar": ar, "ei": ei, "ei_raw": ei_raw, "ei_hist": ei_hist,
         "gla": gla, "ara": ara,
         "set1": set1, "set2": set2,
         "period": period,

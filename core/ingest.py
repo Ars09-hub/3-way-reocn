@@ -29,6 +29,7 @@ def load_gl(path: str) -> pd.DataFrame:
     df["document_date_d"] = pd.to_datetime(df["document_date"], errors="coerce")
     df["customer_vat_n"] = df["customer_vat"].map(nz.clean_vat)
     df["grain_key"] = _grain_key(df)
+    df["gl_key"] = _doc_key(df)
     return df
 
 
@@ -47,16 +48,19 @@ def load_ar(path: str) -> pd.DataFrame:
     df["doc_total_tax_h"] = df["doc_total_tax"].map(nz.to_halalas)
     df["amount_local_h"] = df["amount_in_local_currency"].map(nz.to_halalas)
     df["grain_key"] = _grain_key(df)
+    df["ar_key"] = _doc_key(df)
     return df
 
 
-def load_einvoice(path: str, ksa: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Return (deduped e-invoice frame, resubmission history frame).
+def load_einvoice(path: str, ksa: dict) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Return (raw 39-row frame, deduped frame, resubmission history frame).
 
     Duplicate document numbers are deduplicated to the latest attempt by
-    document_attempted_date; every attempt is preserved in the history frame.
+    document_attempted_date; every attempt is preserved in the raw and history
+    frames. The raw frame (ei_key = row_id) feeds the Document detail page.
     """
     df = _read(path)
+    df["ei_key"] = df["row_id"]
     df["doc_number_n"] = df["document_number"].map(nz.normalize_doc_number)
     df["buyer_vat_n"] = df["buyer_vat"].map(nz.clean_vat)
     df["seller_vat_n"] = df["seller_vat"].map(nz.clean_vat)
@@ -88,7 +92,20 @@ def load_einvoice(path: str, ksa: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
     deduped = df_sorted.drop_duplicates("document_number_raw", keep="last")
     deduped = deduped.sort_values("_order").reset_index(drop=True)
     history = history.sort_values(["document_number_raw", "attempted_date_d"]).reset_index(drop=True)
-    return deduped, history
+    raw = df.sort_values("_order").reset_index(drop=True)
+    return raw, deduped, history
+
+
+def _doc_key(df: pd.DataFrame) -> pd.Series:
+    """Document key: company_code | fiscal_year | voucher_number | voucher_date.
+
+    Uses the raw voucher_number (addendum section 2), so a GL row keeps its own
+    key even where the grain key normalises the CM- credit-note prefix.
+    """
+    vn = df["voucher_number"].astype(str).str.replace(r"\.0$", "", regex=True)
+    vd = pd.to_datetime(df["voucher_date"], errors="coerce").dt.strftime("%Y-%m-%d")
+    return (df["company_code"].astype(str) + "|" + df["fiscal_year"].astype(str)
+            + "|" + vn + "|" + vd.astype(str))
 
 
 def _grain_key(df: pd.DataFrame) -> pd.Series:

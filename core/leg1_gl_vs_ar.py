@@ -67,6 +67,8 @@ def run(set1: pd.DataFrame, set2: pd.DataFrame, engine: dict, frm: pd.Timestamp,
             "in_gl": g is not None,
             "in_ar": a is not None,
             "category": category,
+            "gl_keys": (list(g["gl_keys"]) if g is not None else []),
+            "ar_keys": (list(a["ar_keys"]) if a is not None else []),
             "gl_line_ids": (list(g["line_ids"]) if g is not None else []),
             "ar_line_ids": (list(a["line_ids"]) if a is not None else []),
         })

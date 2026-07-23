@@ -37,6 +37,7 @@ def _ei_state_map(leg2: dict) -> dict:
             "not_accepted": not_accepted,
             "einv_no": r["einv_no"], "einv_taxable_h": r["einv_taxable_h"],
             "einv_vat_h": r["einv_vat_h"], "status": r["status"],
+            "ei_key": r.get("ei_key"),
         }
     return m
 
@@ -95,6 +96,9 @@ def derive(leg1: dict, leg2: dict) -> dict:
             "vat_h": int(vat),
             "status": status, "action": action,
             "einv_no": (ei["einv_no"] if ei else None),
+            "gl_keys": list(r.get("gl_keys") or []),
+            "ar_keys": list(r.get("ar_keys") or []),
+            "ei_keys": ([ei["ei_key"]] if (ei and ei.get("ei_key") is not None) else []),
         })
 
     # e-invoice-only events: reported/failed e-invoices that consumed no AR grain
@@ -120,6 +124,7 @@ def derive(leg1: dict, leg2: dict) -> dict:
                 "einvoice": ei_col, "taxable_h": int(r["einv_taxable_h"]),
                 "vat_h": int(r["einv_vat_h"]), "status": status, "action": action,
                 "einv_no": r["einv_no"],
+                "gl_keys": [], "ar_keys": [], "ei_keys": [r["ei_key"]],
             })
 
     df = pd.DataFrame(events)
