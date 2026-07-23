@@ -1,0 +1,27 @@
+{
+  "_comment": "KSA / ZATCA specifics: tax codes, expected e-invoice terminal status by transaction type, TIN format.",
+  "tin": {
+    "length": 15,
+    "starts_with": "3",
+    "ends_with": "3",
+    "_note": "KSA VAT TIN is 15 digits, starts and ends with 3. Anything else is invalid master data."
+  },
+  "tax_codes": {
+    "S": "Standard rated",
+    "E": "Exempt",
+    "Z": "Zero rated",
+    "O": "Out of scope"
+  },
+  "einvoice_expected_status": {
+    "TAX_INVOICE": "CLEARED",
+    "EXPORT_INV": "CLEARED",
+    "SIMPLIFIED_TAX_INVOICE": "REPORTED"
+  },
+  "not_reported_statuses": ["FAILED", "NOT_SUBMITTED"],
+  "currency_aliases": {
+    "Saudi riyal": "SAR",
+    "SAR": "SAR"
+  },
+  "test_document_pattern": "^test",
+  "credit_note_prefixes": ["CM-", "DM-"]
+}

@@ -1,72 +1,110 @@
-"""Normalisation: document numbers, minor units, FX.
+"""Normalisation helpers: document numbers, signs, halalas, VAT numbers, string arrays.
 
-All matching runs on integer minor units. Floats are never compared.
+Deterministic and side-effect free. Every rule here maps to spec section 1 and 2.2.
 """
 from __future__ import annotations
 
+import math
+import re
 from decimal import Decimal, ROUND_HALF_UP
 
+_CM_DM = re.compile(r"^(CM|DM)-", re.IGNORECASE)
+_LEADING_ZEROS = re.compile(r"^0+(?=\d)")
 
-def to_minor(amount, minor_exp: int) -> int:
-    """Convert a decimal-ish amount to signed integer minor units.
 
-    Uses Decimal with HALF_UP rounding so 12.345 at exp 2 -> 1235 minor,
-    deterministically. Never uses binary floats for the boundary.
+def to_halalas(value) -> int:
+    """Convert a currency amount to integer halalas (2 dp). Never compare floats (spec 2.2).
+
+    Blank / NaN becomes 0.
     """
-    if amount is None or amount == "":
+    if value is None:
         return 0
-    d = Decimal(str(amount))
-    q = Decimal(1).scaleb(-minor_exp)  # 0.01 at exp 2
-    return int((d / q).to_integral_value(rounding=ROUND_HALF_UP))
+    if isinstance(value, float) and math.isnan(value):
+        return 0
+    s = str(value).strip()
+    if s == "" or s.lower() == "nan":
+        return 0
+    s = s.replace(",", "")
+    return int(Decimal(s).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) * 100)
 
 
-def minor_to_decimal(minor: int, minor_exp: int) -> Decimal:
-    q = Decimal(1).scaleb(-minor_exp)
-    return (Decimal(int(minor)) * q).quantize(q)
+def halalas_to_str(h: int) -> str:
+    """Render integer halalas back as a fixed 2 dp string with thousands separators."""
+    neg = h < 0
+    h = abs(int(h))
+    whole, frac = divmod(h, 100)
+    out = f"{whole:,}.{frac:02d}"
+    return ("-" + out) if neg else out
 
 
-def normalize_number(raw: str | None, ops: list[dict]) -> str:
-    """Apply the client profile's ordered normalisation ops to one number."""
-    if raw is None:
+def clean_vat(value) -> str:
+    """Strip literal apostrophes and whitespace, keep alphanumerics only (spec 2.2)."""
+    if value is None:
         return ""
-    s = str(raw).strip()
-    for op in ops:
-        kind = op.get("op")
-        if kind == "upper":
-            s = s.upper()
-        elif kind == "lower":
-            s = s.lower()
-        elif kind == "strip_chars":
-            for ch in op.get("chars", ""):
-                s = s.replace(ch, "")
-        elif kind == "strip_prefix":
-            for pref in op.get("values", []):
-                p = str(pref).upper()
-                if s.upper().startswith(p):
-                    s = s[len(p):]
-                    break
-        elif kind == "strip_suffix":
-            for suf in op.get("values", []):
-                p = str(suf).upper()
-                if s.upper().endswith(p):
-                    s = s[: len(s) - len(p)]
-                    break
-        elif kind == "strip_leading_zeros":
-            s = s.lstrip("0") or "0"
+    s = str(value).strip()
+    if s.lower() == "nan":
+        return ""
+    return re.sub(r"[^0-9A-Za-z]", "", s)
+
+
+def is_valid_tin(value, tin_cfg: dict) -> bool:
+    """KSA TIN: 15 digits, starts and ends with 3 (config driven)."""
+    v = clean_vat(value)
+    return (
+        len(v) == tin_cfg["length"]
+        and v.isdigit()
+        and v.startswith(tin_cfg["starts_with"])
+        and v.endswith(tin_cfg["ends_with"])
+    )
+
+
+def normalize_doc_number(value) -> str:
+    """Canonical document key across the three number families (spec 1.4).
+
+    Strip CM-/DM- credit-note prefix, upper-case, trim, strip leading zeros.
+    """
+    if value is None:
+        return ""
+    s = str(value).strip()
+    if s.lower() == "nan" or s == "":
+        return ""
+    s = _CM_DM.sub("", s)
+    s = s.strip().upper()
+    s = _LEADING_ZEROS.sub("", s)
     return s
 
 
-# the four number families every document may carry
-NUMBER_FAMILIES = ["doc_id_native", "accounting_doc_id", "billing_doc_id", "official_doc_id"]
+def is_credit_note_number(value) -> bool:
+    return bool(_CM_DM.match(str(value).strip())) if value is not None else False
 
 
-def normalized_families(rec: dict, ops: list[dict]) -> dict:
-    """Return {family: normalized_value} for every non-empty family."""
-    out = {}
-    for fam in NUMBER_FAMILIES:
-        val = rec.get(fam)
-        if val:
-            norm = normalize_number(val, ops)
-            if norm:
-                out[fam] = norm
-    return out
+def parse_string_array(value) -> list[str]:
+    """Parse the '[a, b]' / '[]' / blank string-array format (spec 2.2)."""
+    if value is None:
+        return []
+    s = str(value).strip()
+    if s == "" or s.lower() == "nan":
+        return []
+    if s.startswith("[") and s.endswith("]"):
+        s = s[1:-1].strip()
+    if s == "":
+        return []
+    parts = [p.strip().strip("'\"") for p in s.split(",")]
+    return [p for p in parts if p != ""]
+
+
+def map_currency(value, aliases: dict) -> str:
+    if value is None:
+        return ""
+    s = str(value).strip()
+    return aliases.get(s, s)
+
+
+def clean_gl_code(value) -> str:
+    """GL codes sometimes arrive as floats (e.g. 41140104.0). Return the bare integer string."""
+    if value is None:
+        return ""
+    s = str(value).strip()
+    if s.lower() == "nan" or s == "":
+        return ""
+    return re.sub(r"\.0$", "", s)

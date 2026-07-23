@@ -1,0 +1,36 @@
+{
+  "_comment": "GL account scope for the KSA three-way recon. Classes derive from gl_code prefix (see classification), excluded accounts are out of scope for e-invoicing by design (spec 2.3).",
+  "classification": {
+    "REVENUE":          {"prefixes": ["41"]},
+    "TAX_OUTPUT":       {"codes": ["21120201"]},
+    "CONTRA_REVENUE":   {"prefixes": ["51"]},
+    "CUSTOMER_CONTROL": {"codes": ["11120101"]},
+    "OTHER_INCOME":     {"prefixes": ["63"]}
+  },
+  "set1_taxable_classes": ["REVENUE"],
+  "set1_tax_classes": ["TAX_OUTPUT"],
+  "excluded_accounts": [
+    {"gl_code": "63110111", "description": "Realised Foreign exchange gain/(loss)", "reason": "forex"},
+    {"gl_code": "63110101", "description": "Interest Income on bank balances", "reason": "interest"},
+    {"gl_code": "63110127", "description": "Interest income Cashpooling", "reason": "interest"},
+    {"gl_code": "11210112", "description": "Interest Receivables", "reason": "interest"},
+    {"gl_code": "11210113", "description": "Accrued income Cashpooling", "reason": "interest"},
+    {"gl_code": "11120107", "description": "Intercompany Clearing Account", "reason": "intercompany"},
+    {"gl_code": "11120106", "description": "Intercompany receivables", "reason": "intercompany"},
+    {"gl_code": "21210601", "description": "Deferred Revenue", "reason": "deferred revenue, not a supply until recognised"},
+    {"gl_code": "21210608", "description": "Deferred Revenue", "reason": "deferred revenue, not a supply until recognised"},
+    {"gl_code": "11210101", "description": "Recoverable VAT Input", "reason": "purchase side"}
+  ],
+  "revenue_accounts_seen": {
+    "41110102": "Advertisement revenue",
+    "41110105": "Game development service revenue",
+    "41110106": "In App purchase revenue Google",
+    "41110107": "In App purchase revenue Apple",
+    "41130105": "Venue rental revenue",
+    "41140104": "Other Revenues",
+    "41140105": "Utilities Revenue",
+    "41160101": "Base rent",
+    "41160102": "BSC",
+    "41160103": "MSCS"
+  }
+}

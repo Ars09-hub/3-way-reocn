@@ -1,0 +1,23 @@
+{
+  "_comment": "Tolerances, period windows and combination-search limits (spec 3.2, 3.3, 3.4).",
+  "amounts": {
+    "unit": "halalas",
+    "decimals": 2
+  },
+  "tolerance": {
+    "abs_halalas": 2,
+    "rel_fraction": 0.0005,
+    "_note": "per document: 2 halalas for rounding, or 0.05 percent of value, whichever is larger"
+  },
+  "period": {
+    "erp_date_field": "voucher_date",
+    "einvoice_date_field": "document_issue_date",
+    "_note": "Common overlapping window is the intersection of the three per-file date ranges. erp_date_field is an open decision (spec 9): accounting date (voucher_date) vs document_date. Default is voucher_date (accounting/fiscal period), which places the December e-invoice batch out of period. Override on the CLI with --period-from / --period-to."
+  },
+  "combination": {
+    "max_docs_per_side": 6,
+    "exhaustive_max_block": 22,
+    "date_window_days": 7,
+    "heuristic_seed": 20260723
+  }
+}
