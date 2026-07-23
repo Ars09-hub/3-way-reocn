@@ -24,6 +24,7 @@ def load_gl(path: str) -> pd.DataFrame:
     df = _read(path)
     df["gl_code_n"] = df["gl_code"].map(nz.clean_gl_code)
     df["voucher_number_s"] = df["voucher_number"].astype(str).str.replace(r"\.0$", "", regex=True)
+    df["voucher_number_n"] = df["voucher_number_s"].str.replace(r"^(CM|DM)-", "", regex=True, case=False).str.strip().str.upper()
     df["voucher_date_d"] = pd.to_datetime(df["voucher_date"], errors="coerce")
     df["document_date_d"] = pd.to_datetime(df["document_date"], errors="coerce")
     df["customer_vat_n"] = df["customer_vat"].map(nz.clean_vat)
@@ -35,6 +36,7 @@ def load_ar(path: str) -> pd.DataFrame:
     df = _read(path)
     df["gl_code_n"] = df["gl_code_combination"].map(nz.clean_gl_code)
     df["voucher_number_s"] = df["voucher_number"].astype(str).str.replace(r"\.0$", "", regex=True)
+    df["voucher_number_n"] = df["voucher_number_s"].str.replace(r"^(CM|DM)-", "", regex=True, case=False).str.strip().str.upper()
     df["voucher_date_d"] = pd.to_datetime(df["voucher_date"], errors="coerce")
     df["document_date_d"] = pd.to_datetime(df["document_date"], errors="coerce")
     df["doc_number_n"] = df["document_number"].map(nz.normalize_doc_number)
@@ -90,10 +92,19 @@ def load_einvoice(path: str, ksa: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def _grain_key(df: pd.DataFrame) -> pd.Series:
+    """Grain key: company_code + fiscal_year + voucher_number + voucher_date (spec 1.3).
+
+    The GL register prefixes credit-note voucher numbers with CM-/DM- while the
+    sales register keeps them bare (the CM- lives only in document_number), so the
+    voucher-number component is normalised the same way on both sides before the
+    grain is formed. Invoice and credit note stay distinct through voucher_date.
+    """
+    vn = df["voucher_number"].astype(str).str.replace(r"\.0$", "", regex=True)
+    vn = vn.str.replace(r"^(CM|DM)-", "", regex=True, case=False).str.strip().str.upper()
     vd = pd.to_datetime(df["voucher_date"], errors="coerce").dt.strftime("%Y-%m-%d")
     return (
         df["company_code"].astype(str) + "|"
         + df["fiscal_year"].astype(str) + "|"
-        + df["voucher_number"].astype(str).str.replace(r"\.0$", "", regex=True) + "|"
+        + vn + "|"
         + vd.astype(str)
     )
