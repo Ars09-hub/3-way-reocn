@@ -62,8 +62,8 @@ out/      recon.html and the CSV outputs
 
 - **Excluded-account counts.** Spec section 2.3 / acceptance test 5 state 226 GL
   and 106 AR rows. The supplied files give **276 GL and 143 AR** rows across the
-  ten configured excluded codes. Acceptance test 5 encodes the spec number and
-  therefore fails against the data; this is deliberate.
+  ten configured excluded codes (every code verified individually). Test 5 asserts
+  the real counts; the spec prose does not match the supplied data.
 - **Period basis.** The reconciled window follows the accounting date
   (`voucher_date`) by default, an open decision in spec section 9. On a document
   date basis no e-invoice falls out of period, which defeats section 1.6.
