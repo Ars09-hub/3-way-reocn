@@ -8,7 +8,8 @@ from __future__ import annotations
 import pandas as pd
 
 from core import (ingest, scope as scope_mod, sets, leg1_gl_vs_ar, leg2_einv_vs_ar,
-                  threeway as threeway_mod, customer_view, quality, detail as detail_mod)
+                  threeway as threeway_mod, customer_view, quality, detail as detail_mod,
+                  registry as registry_mod)
 
 
 def run(cfg: dict, gl_path: str, ar_path: str, einv_path: str,
@@ -48,4 +49,5 @@ def run(cfg: dict, gl_path: str, ar_path: str, einv_path: str,
     R["customers"] = customer_view.build(threeway, ksa)
     R["quality"] = quality.build(R)
     R["detail"] = detail_mod.build(R)
+    R["registry"] = registry_mod.build_registry(R)
     return R

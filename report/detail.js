@@ -1,8 +1,10 @@
-// Document detail page (addendum sections 3, 4, 6). Renders three source tabs
-// from window.__DETAIL__, all bound to window.__FILTER__ (null = show all).
+// Document detail page + drill-through (addendum sections 3, 5, 6).
+// Reads window.RECON = { gl:[rows], ar:[rows], ei:[rows], meta:{...}, drill:{...} }.
+// One delegated listener resolves data-drill ids against RECON.drill. No filter
+// logic is re-derived in the browser: the key lists come from the payload.
 (function () {
-  var D = window.__DETAIL__;
-  if (!D) return;
+  var R = window.RECON;
+  if (!R) return;
   var BADGE = {
     "Exact match": "ok", "Fully reconciled": "ok", "Amount mismatch": "warn",
     "Reconciled with differences": "warn", "Needs review": "warn",
@@ -20,6 +22,9 @@
     sort: { gl: null, ar: null, ei: null },
     grain: "line"
   };
+
+  function meta(tab) { return R.meta[tab]; }
+  function allRows(tab) { return R[tab]; }
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
@@ -39,7 +44,7 @@
 
   // rows for a tab: apply the active filter (null = all), then the search box
   function baseRows(tab) {
-    var ds = D[tab], rows = ds.rows, f = window.__FILTER__;
+    var rows = allRows(tab), f = window.__FILTER__;
     if (f) {
       var keyset = { gl: f.glKeys, ar: f.arKeys, ei: f.eiKeys }[tab] || [];
       var set = {}; keyset.forEach(function (k) { set[String(k)] = 1; });
@@ -52,10 +57,22 @@
     }
     return rows;
   }
+  // distinct-key count = documents/vouchers at grain (addendum 3.2, 6.2)
+  function distinctKeys(tab) {
+    var f = window.__FILTER__;
+    var rows = allRows(tab);
+    if (f) {
+      var keyset = { gl: f.glKeys, ar: f.arKeys, ei: f.eiKeys }[tab] || [];
+      var set = {}; keyset.forEach(function (k) { set[String(k)] = 1; });
+      rows = rows.filter(function (r) { return set[r._key]; });
+    }
+    var seen = {}; rows.forEach(function (r) { seen[r._key] = 1; });
+    return Object.keys(seen).length;
+  }
   function searchRows(tab) {
     var rows = baseRows(tab), q = state.search[tab].toLowerCase();
     if (!q) return rows;
-    var cols = D[tab][state.mode[tab] === "all" ? "all" : "essential"];
+    var cols = meta(tab)[state.mode[tab] === "all" ? "all" : "essential"];
     return rows.filter(function (r) {
       return cols.some(function (c) {
         var v = r[c]; if (Array.isArray(v)) v = v.join(" ");
@@ -65,7 +82,7 @@
   }
   function sortRows(tab, rows) {
     var s = state.sort[tab]; if (!s) return rows;
-    var numeric = D[tab].numeric.indexOf(s.col) >= 0;
+    var numeric = meta(tab).numeric.indexOf(s.col) >= 0;
     var copy = rows.slice();
     copy.sort(function (a, b) {
       var x = a[s.col], y = b[s.col];
@@ -81,73 +98,64 @@
   }
 
   function cell(tab, r, col, groupFirst) {
-    var ds = D[tab];
-    // status badges
+    var m = meta(tab);
     if (tab === "ei" && col === "Status") return statusBadge(r[col]);
     if (col === "Status" || col === "Recon status") return reconBadge(r[col]);
     if (tab === "ei" && col === "Validation errors") return errlist(r._errors);
     var v = r[col];
     if (Array.isArray(v)) v = v.join(", ");
     v = esc(v);
-    // buyer name carries the ZATCA error text for failed/not-submitted rows
     if (tab === "ei" && col === "Buyer name" && r._errors && r._errors.length &&
         (r._invoice_status === "FAILED" || r._invoice_status === "NOT_SUBMITTED")) {
       v += errlist(r._errors);
     }
-    // repeated document-level figures muted after the first line of a voucher
     if (tab === "ar" && state.grain === "line" && !groupFirst &&
-        ds.doclevel_labels && ds.doclevel_labels.indexOf(col) >= 0) {
+        m.doclevel_labels && m.doclevel_labels.indexOf(col) >= 0) {
       return '<span class="muted">' + v + "</span>";
     }
     return v;
   }
 
   function render() {
-    var tab = state.tab, ds = D[tab];
-    // filter bar
+    var tab = state.tab, m = meta(tab);
     var fb = document.getElementById("dd-filterbar");
     var f = window.__FILTER__;
     if (f) {
       var grainWord = f.grain || "documents";
       fb.querySelector(".dd-fb-text").innerHTML =
         "Showing <strong>" + f.count + "</strong> " + esc(grainWord) +
-        ' &middot; ' + esc(f.origin) + " &rsaquo; " + esc(f.label);
+        " &middot; " + esc(f.origin) + " &rsaquo; " + esc(f.label);
       fb.querySelector(".dd-clear").style.display = "";
-      fb.querySelector(".dd-back").style.display = f.origin ? "" : "none";
+      fb.querySelector(".dd-back").style.display = f.traced ? "" : "none";
     } else {
       fb.querySelector(".dd-fb-text").innerHTML = "Showing <strong>all</strong> documents";
       fb.querySelector(".dd-clear").style.display = "none";
       fb.querySelector(".dd-back").style.display = "none";
     }
-    // sub-tab counts
     TABS.forEach(function (t) {
       var key = t[0];
-      var prevTab = state.tab, prevSearch = state.search[key];
-      // count = filtered rows for that tab, ignoring the search box
-      var saved = state.tab; state.tab = key;
-      var n = baseRows(key).length; state.tab = saved;
       var el = document.getElementById("dd-subtab-" + key);
-      el.querySelector(".dd-count").textContent = "(" + n + ")";
+      el.querySelector(".dd-count").textContent = "(" + distinctKeys(key) + ")";
       el.classList.toggle("on", key === tab);
     });
 
     var rows = sortRows(tab, searchRows(tab));
-    var cols = ds[state.mode[tab] === "all" ? "all" : "essential"];
+    var cols = m[state.mode[tab] === "all" ? "all" : "essential"];
     var body = document.getElementById("dd-body");
 
     if (baseRows(tab).length === 0) {
       body.innerHTML =
         '<div class="dd-empty">No ' + esc(TABS.filter(function (t) { return t[0] === tab; })[0][1]) +
         " documents are associated with this selection.</div>";
-      document.getElementById("dd-rowcount").textContent = "Showing 0 of " + ds.total + " rows";
+      document.getElementById("dd-rowcount").textContent = "Showing 0 of " + m.total + " rows";
       renderControls();
       return;
     }
 
     var thead = "<tr>" + cols.map(function (c) {
       var arrow = state.sort[tab] && state.sort[tab].col === c ? (state.sort[tab].dir > 0 ? " ↑" : " ↓") : "";
-      var num = ds.numeric.indexOf(c) >= 0 ? " num" : "";
-      return '<th class="' + num.trim() + '" data-col="' + esc(c) + '" title="' + esc(ds.tooltips[c] || c) + '">' + esc(c) + arrow + "</th>";
+      var num = m.numeric.indexOf(c) >= 0 ? " num" : "";
+      return '<th class="' + num.trim() + '" data-col="' + esc(c) + '" title="' + esc(m.tooltips[c] || c) + '">' + esc(c) + arrow + "</th>";
     }).join("") + "</tr>";
 
     var seen = {};
@@ -155,8 +163,9 @@
       var groupFirst = true;
       if (tab === "ar" && state.grain === "line") { groupFirst = !seen[r._key]; seen[r._key] = 1; }
       var tds = cols.map(function (c) {
-        var num = ds.numeric.indexOf(c) >= 0 ? ' class="num"' : (c === "Buyer name" || c === "Customer name" || c === "GL description" || c === "Validation errors" ? ' class="wrapcell"' : "");
-        return "<td" + num + ">" + cell(tab, r, c, groupFirst) + "</td>";
+        var cls = m.numeric.indexOf(c) >= 0 ? ' class="num"'
+          : (c === "Buyer name" || c === "Customer name" || c === "GL description" || c === "Validation errors" ? ' class="wrapcell"' : "");
+        return "<td" + cls + ">" + cell(tab, r, c, groupFirst) + "</td>";
       }).join("");
       return '<tr data-key="' + esc(r._key) + '">' + tds + "</tr>";
     }).join("");
@@ -166,9 +175,8 @@
 
     body.innerHTML = note +
       '<div class="tablewrap"><table class="dt"><thead>' + thead + "</thead><tbody>" + trs + "</tbody></table></div>";
-    document.getElementById("dd-rowcount").textContent = "Showing " + rows.length + " of " + ds.total + " rows";
+    document.getElementById("dd-rowcount").textContent = "Showing " + rows.length + " of " + m.total + " rows";
 
-    // header sort handlers
     body.querySelectorAll("thead th").forEach(function (th) {
       th.addEventListener("click", function () {
         var c = th.getAttribute("data-col");
@@ -177,7 +185,6 @@
         render();
       });
     });
-    // row click = trace this one document across all three tabs
     body.querySelectorAll("tbody tr").forEach(function (tr) {
       tr.addEventListener("click", function () { traceDocument(tab, tr.getAttribute("data-key")); });
       tr.style.cursor = "pointer";
@@ -186,33 +193,30 @@
   }
 
   function renderControls() {
-    var tab = state.tab, ds = D[tab];
+    var tab = state.tab;
     document.getElementById("dd-search").value = state.search[tab];
-    var modeBtn = document.getElementById("dd-colmode");
-    modeBtn.textContent = state.mode[tab] === "all" ? "Essential columns" : "All columns";
+    document.getElementById("dd-colmode").textContent = state.mode[tab] === "all" ? "Essential columns" : "All columns";
     var grainBtn = document.getElementById("dd-grain");
     grainBtn.style.display = tab === "ar" ? "" : "none";
     grainBtn.textContent = state.grain === "voucher" ? "Line level" : "Voucher level";
   }
 
   function traceDocument(tab, key) {
-    var ds = D[tab];
     var doc = { gl: [], ar: [], ei: [] };
     doc[tab] = [key];
-    // find the same document in the other datasets by shared voucher identity
-    var row = ds.rows.filter(function (r) { return r._key === key; })[0];
+    var row = allRows(tab).filter(function (r) { return r._key === key; })[0];
     var voucher = row ? (row["Voucher number"] || row["E-invoice number"]) : null;
     if (voucher) {
       ["gl", "ar", "ei"].forEach(function (t) {
         if (t === tab) return;
         var field = t === "ei" ? "E-invoice number" : "Voucher number";
-        D[t].rows.forEach(function (r) {
+        allRows(t).forEach(function (r) {
           var rv = r[field]; if (rv == null) return;
           if (String(rv).replace(/^(CM|DM)-/i, "") === String(voucher).replace(/^(CM|DM)-/i, "")) doc[t].push(r._key);
         });
       });
     }
-    var label = (tab === "ei" ? "e-invoice " : "voucher ") + esc(voucher || key);
+    var label = (tab === "ei" ? "e-invoice " : "voucher ") + (voucher || key);
     var originName = { gl: "GL register", ar: "Sales register", ei: "E-invoice" }[tab];
     window.__FILTER__ = {
       label: label, origin: "Traced from " + originName, traced: true,
@@ -223,8 +227,8 @@
   }
 
   function toCSV() {
-    var tab = state.tab, ds = D[tab];
-    var cols = ds[state.mode[tab] === "all" ? "all" : "essential"];
+    var tab = state.tab, m = meta(tab);
+    var cols = m[state.mode[tab] === "all" ? "all" : "essential"];
     var rows = sortRows(tab, searchRows(tab));
     var lines = [cols.map(csvCell).join(",")];
     rows.forEach(function (r) {
@@ -235,10 +239,7 @@
     });
     return lines.join("\n");
   }
-  function csvCell(v) {
-    v = String(v == null ? "" : v);
-    return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
-  }
+  function csvCell(v) { v = String(v == null ? "" : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
   function slug(s) { return String(s || "all").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
   function download() {
     var f = window.__FILTER__;
@@ -249,15 +250,23 @@
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   }
 
+  function openDrill(id) {
+    var d = R.drill && R.drill[id];
+    if (!d) return;
+    window.__FILTER__ = {
+      label: d.label, origin: d.origin, grain: d.grain, count: d.count,
+      glKeys: d.glKeys, arKeys: d.arKeys, eiKeys: d.eiKeys, traced: false
+    };
+    state.tab = "gl";
+    if (typeof showDetailPage === "function") showDetailPage();
+    render();
+  }
+
   function wire() {
     TABS.forEach(function (t) {
-      document.getElementById("dd-subtab-" + t[0]).addEventListener("click", function () {
-        state.tab = t[0]; render();
-      });
+      document.getElementById("dd-subtab-" + t[0]).addEventListener("click", function () { state.tab = t[0]; render(); });
     });
-    document.getElementById("dd-search").addEventListener("input", function () {
-      state.search[state.tab] = this.value; render();
-    });
+    document.getElementById("dd-search").addEventListener("input", function () { state.search[state.tab] = this.value; render(); });
     document.getElementById("dd-colmode").addEventListener("click", function () {
       state.mode[state.tab] = state.mode[state.tab] === "all" ? "essential" : "all"; render();
     });
@@ -265,17 +274,20 @@
       state.grain = state.grain === "voucher" ? "line" : "voucher"; render();
     });
     document.getElementById("dd-export").addEventListener("click", download);
-    document.getElementById("dd-clear").addEventListener("click", function () {
-      window.__FILTER__ = null; render();
-    });
-    document.getElementById("dd-back").addEventListener("click", function () {
-      if (window.__ddBack) window.__ddBack();
+    document.getElementById("dd-clear").addEventListener("click", function () { window.__FILTER__ = null; render(); });
+    document.getElementById("dd-back").addEventListener("click", function () { if (window.__ddBack) window.__ddBack(); });
+
+    // single delegated drill-through listener (addendum step 2)
+    document.addEventListener("click", function (e) {
+      var el = e.target.closest ? e.target.closest("[data-drill]") : null;
+      if (!el) return;
+      e.preventDefault();
+      openDrill(el.getAttribute("data-drill"));
     });
     render();
   }
 
-  // expose so origin pages can open this page pre-filtered (checkpoint 4)
-  window.openDocumentDetail = function (filter) { window.__FILTER__ = filter; showDetailPage(); render(); };
+  window.openDocumentDetail = function (id) { openDrill(id); };
   window.__ddRender = render;
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire);

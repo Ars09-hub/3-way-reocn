@@ -41,6 +41,8 @@ DETAIL_CSS = """
 .dd-note{font-size:12px;color:var(--ts);margin:0 0 10px}
 .dd-empty{padding:28px;text-align:center;color:var(--tm);font-size:13px;
   background:var(--card);border:1px solid var(--border);border-radius:12px}
+.drillable{cursor:pointer}
+.drillable:hover .mcard-value,.drillable:hover .mcard-label{text-decoration:underline}
 </style>
 """
 
@@ -71,6 +73,13 @@ def badge(label) -> str:
 
 def dot(kind) -> str:
     return f'<span class="dot {kind}"></span>'
+
+
+def _mcard(label, value, cls, note, drill=None) -> str:
+    attr = f' class="mcard drillable" data-drill="{esc(drill)}"' if drill else ' class="mcard"'
+    return (f'<div{attr}><div class="mcard-label">{esc(label)}</div>'
+            f'<div class="mcard-value {cls}">{esc(value)}</div>'
+            f'<div class="mcard-note">{esc(note)}</div></div>')
 
 
 def present(state) -> str:
@@ -147,19 +156,16 @@ def page1(R, S):
         headline += (f" A further {S['nb_n']} e-invoices worth {sar(S['nb_v'])} were reported "
                      f"but have no accounting entry.")
     cards = [
-        ("Sales value in scope", sar(S["in_scope_taxable"]), "", f"Taxable value, {S['in_scope_vouchers']} vouchers"),
-        ("VAT in scope", sar(S["in_scope_vat"]), "", "Output VAT"),
-        ("Fully reconciled", str(S["fr_n"]), "g", sar(S["fr_v"])),
-        ("Not e-invoiced", str(S["ne_n"]), "r", f"{sar(S['ne_v'])} of taxable value"),
-        ("Not booked", str(S["nb_n"]), "r", sar(S["nb_v"])),
-        ("Submitted, not accepted", str(S["na_n"]), "a", f"Failed or not submitted, {sar(S['na_v'])}"),
-        ("Differences to review", str(S["diff_n"]), "a", f"{sar(S['diff_v'])} net"),
-        ("Out of scope by design", str(S["oos_n"]), "", "Interest, forex, intercompany"),
+        ("Sales value in scope", sar(S["in_scope_taxable"]), "", f"Taxable value, {S['in_scope_vouchers']} vouchers", None),
+        ("VAT in scope", sar(S["in_scope_vat"]), "", "Output VAT", None),
+        ("Fully reconciled", str(S["fr_n"]), "g", sar(S["fr_v"]), None),
+        ("Not e-invoiced", str(S["ne_n"]), "r", f"{sar(S['ne_v'])} of taxable value", "exec.not_einvoiced"),
+        ("Not booked", str(S["nb_n"]), "r", sar(S["nb_v"]), None),
+        ("Submitted, not accepted", str(S["na_n"]), "a", f"Failed or not submitted, {sar(S['na_v'])}", None),
+        ("Differences to review", str(S["diff_n"]), "a", f"{sar(S['diff_v'])} net", None),
+        ("Out of scope by design", str(S["oos_n"]), "", "Interest, forex, intercompany", None),
     ]
-    card_html = "".join(
-        f'<div class="mcard"><div class="mcard-label">{esc(l)}</div>'
-        f'<div class="mcard-value {c}">{esc(v)}</div><div class="mcard-note">{esc(n)}</div></div>'
-        for l, v, c, n in cards)
+    card_html = "".join(_mcard(l, v, c, n, drill) for l, v, c, n, drill in cards)
 
     # largest open items
     tw = R["threeway"]["events"].copy()
@@ -518,14 +524,16 @@ def page7(R):
     </div>"""
 
 
-def _detail_payload(R):
+def _recon_payload(R):
+    """window.RECON = { gl:[rows], ar:[rows], ei:[rows], meta:{...}, drill:{...} }."""
     d = R["detail"]
-    out = {}
+    out = {"meta": {}, "drill": R["registry"]}
     for name in ("gl", "ar", "ei"):
         ds = d[name]
-        out[name] = {
+        out[name] = ds["rows"]
+        out["meta"][name] = {
             "essential": ds["essential"], "all": ds["all"], "numeric": ds["numeric"],
-            "tooltips": ds["tooltips"], "rows": ds["rows"], "total": ds["total"],
+            "tooltips": ds["tooltips"], "total": ds["total"],
             "doclevel_labels": ds.get("doclevel_labels", []),
         }
     return out
@@ -586,7 +594,7 @@ def build(R: dict, out_path: str) -> str:
   </div>
 </div>
 {script}
-<script>window.__DETAIL__ = {json.dumps(_detail_payload(R), ensure_ascii=False)};
+<script>window.RECON = {json.dumps(_recon_payload(R), ensure_ascii=False)};
 window.__FILTER__ = null;
 function showDetailPage(){{var t=document.querySelector('.tab[data-p="p7"]');if(t)t.click();}}
 </script>
