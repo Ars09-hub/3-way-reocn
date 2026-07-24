@@ -198,9 +198,10 @@ def _dataset(df, essential, all_add, derived, key_col):
     tooltips = {lbl: (src if not src.startswith("@") else "derived") for lbl, src in ess}
     tooltips.update({c: c for c in all_cols})
 
+    lid_col = "row_id" if key_col == "ei_key" else "line_id"
     rows = []
     for _, r in df.iterrows():
-        rec = {"_key": str(r[key_col])}
+        rec = {"_key": str(r[key_col]), "_lid": str(r[lid_col])}
         for lbl, src in ess:
             rec[lbl] = _fmt(derived[src](r) if src.startswith("@") else r.get(src), lbl)
         for c in all_cols:

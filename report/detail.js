@@ -42,14 +42,24 @@
     return '<ul class="errlist">' + errs.map(function (e) { return "<li>" + esc(e) + "</li>"; }).join("") + "</ul>";
   }
 
-  // rows for a tab: apply the active filter (null = all), then the search box
-  function baseRows(tab) {
-    var rows = allRows(tab), f = window.__FILTER__;
-    if (f) {
-      var keyset = { gl: f.glKeys, ar: f.arKeys, ei: f.eiKeys }[tab] || [];
-      var set = {}; keyset.forEach(function (k) { set[String(k)] = 1; });
-      rows = rows.filter(function (r) { return set[r._key]; });
+  // filter a dataset's rows by the active filter. Row-grained filters (data
+  // quality) carry line ids and hit exactly the flagged lines; voucher and
+  // document filters carry document keys and hit whole vouchers.
+  function applyFilter(tab, rows) {
+    var f = window.__FILTER__;
+    if (!f) return rows;
+    var lids = { gl: f.glLids, ar: f.arLids, ei: f.eiLids }[tab];
+    if (lids) {
+      var lset = {}; lids.forEach(function (k) { lset[String(k)] = 1; });
+      return rows.filter(function (r) { return lset[r._lid]; });
     }
+    var keyset = { gl: f.glKeys, ar: f.arKeys, ei: f.eiKeys }[tab] || [];
+    var set = {}; keyset.forEach(function (k) { set[String(k)] = 1; });
+    return rows.filter(function (r) { return set[r._key]; });
+  }
+  // rows for a tab: apply the active filter (null = all), then AR grain collapse
+  function baseRows(tab) {
+    var rows = applyFilter(tab, allRows(tab));
     if (tab === "ar" && state.grain === "voucher") {
       var seen = {}; var out = [];
       rows.forEach(function (r) { if (!seen[r._key]) { seen[r._key] = 1; out.push(r); } });
@@ -57,15 +67,12 @@
     }
     return rows;
   }
-  // distinct-key count = documents/vouchers at grain (addendum 3.2, 6.2)
-  function distinctKeys(tab) {
+  // sub-tab count at the filter's grain: rows for line-grained data-quality
+  // filters, distinct documents/vouchers otherwise (addendum 3.2, 6.2)
+  function countAtGrain(tab) {
+    var rows = applyFilter(tab, allRows(tab));
     var f = window.__FILTER__;
-    var rows = allRows(tab);
-    if (f) {
-      var keyset = { gl: f.glKeys, ar: f.arKeys, ei: f.eiKeys }[tab] || [];
-      var set = {}; keyset.forEach(function (k) { set[String(k)] = 1; });
-      rows = rows.filter(function (r) { return set[r._key]; });
-    }
+    if (f && f.grain === "rows") return rows.length;
     var seen = {}; rows.forEach(function (r) { seen[r._key] = 1; });
     return Object.keys(seen).length;
   }
@@ -135,7 +142,7 @@
     TABS.forEach(function (t) {
       var key = t[0];
       var el = document.getElementById("dd-subtab-" + key);
-      el.querySelector(".dd-count").textContent = "(" + distinctKeys(key) + ")";
+      el.querySelector(".dd-count").textContent = "(" + countAtGrain(key) + ")";
       el.classList.toggle("on", key === tab);
     });
 
@@ -255,9 +262,11 @@
     if (!d) return;
     window.__FILTER__ = {
       label: d.label, origin: d.origin, grain: d.grain, count: d.count,
-      glKeys: d.glKeys, arKeys: d.arKeys, eiKeys: d.eiKeys, traced: false
+      glKeys: d.glKeys, arKeys: d.arKeys, eiKeys: d.eiKeys,
+      glLids: d.glLids, arLids: d.arLids, eiLids: d.eiLids, traced: false
     };
-    state.tab = "gl";
+    // open on a tab that actually has documents for this selection
+    state.tab = countAtGrain("gl") ? "gl" : (countAtGrain("ar") ? "ar" : "ei");
     if (typeof showDetailPage === "function") showDetailPage();
     render();
   }

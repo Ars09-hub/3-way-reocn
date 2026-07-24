@@ -41,8 +41,12 @@ DETAIL_CSS = """
 .dd-note{font-size:12px;color:var(--ts);margin:0 0 10px}
 .dd-empty{padding:28px;text-align:center;color:var(--tm);font-size:13px;
   background:var(--card);border:1px solid var(--border);border-radius:12px}
-.drillable{cursor:pointer}
-.drillable:hover .mcard-value,.drillable:hover .mcard-label{text-decoration:underline}
+[data-drill]{cursor:pointer}
+[data-drill]:hover .mcard-value,[data-drill]:hover .mcard-label,
+[data-drill]:hover .strip-count,[data-drill]:hover .strip-label,
+[data-drill]:hover .big,[data-drill]:hover .label,
+.badge[data-drill]:hover,[data-drill]:hover .cust-link{text-decoration:underline}
+.cust-link{cursor:pointer}
 </style>
 """
 
@@ -156,14 +160,14 @@ def page1(R, S):
         headline += (f" A further {S['nb_n']} e-invoices worth {sar(S['nb_v'])} were reported "
                      f"but have no accounting entry.")
     cards = [
-        ("Sales value in scope", sar(S["in_scope_taxable"]), "", f"Taxable value, {S['in_scope_vouchers']} vouchers", None),
-        ("VAT in scope", sar(S["in_scope_vat"]), "", "Output VAT", None),
-        ("Fully reconciled", str(S["fr_n"]), "g", sar(S["fr_v"]), None),
+        ("Sales value in scope", sar(S["in_scope_taxable"]), "", f"Taxable value, {S['in_scope_vouchers']} vouchers", "exec.sales_in_scope"),
+        ("VAT in scope", sar(S["in_scope_vat"]), "", "Output VAT", "exec.vat_in_scope"),
+        ("Fully reconciled", str(S["fr_n"]), "g", sar(S["fr_v"]), "exec.fully_reconciled"),
         ("Not e-invoiced", str(S["ne_n"]), "r", f"{sar(S['ne_v'])} of taxable value", "exec.not_einvoiced"),
-        ("Not booked", str(S["nb_n"]), "r", sar(S["nb_v"]), None),
-        ("Submitted, not accepted", str(S["na_n"]), "a", f"Failed or not submitted, {sar(S['na_v'])}", None),
-        ("Differences to review", str(S["diff_n"]), "a", f"{sar(S['diff_v'])} net", None),
-        ("Out of scope by design", str(S["oos_n"]), "", "Interest, forex, intercompany", None),
+        ("Not booked", str(S["nb_n"]), "r", sar(S["nb_v"]), "exec.not_booked"),
+        ("Submitted, not accepted", str(S["na_n"]), "a", f"Failed or not submitted, {sar(S['na_v'])}", "exec.submitted_not_accepted"),
+        ("Differences to review", str(S["diff_n"]), "a", f"{sar(S['diff_v'])} net", "exec.differences"),
+        ("Out of scope by design", str(S["oos_n"]), "", "Interest, forex, intercompany", "exec.out_of_scope"),
     ]
     card_html = "".join(_mcard(l, v, c, n, drill) for l, v, c, n, drill in cards)
 
@@ -209,11 +213,12 @@ def page1(R, S):
 
 # ------------------------------------------------------------------- page 2
 
-def _strip_cell(label, dot_kind, count, value, first=False):
+def _strip_cell(label, dot_kind, count, value, first=False, drill=None):
     d = dot(dot_kind) if dot_kind else ""
     on = " on" if first else ""
     fkey = "all" if first else label
-    return (f'<div class="strip-cell{on}" data-f="{esc(fkey)}"><div class="strip-label">{d}{esc(label)}</div>'
+    da = f' data-drill="{esc(drill)}"' if drill else ""
+    return (f'<div class="strip-cell{on}" data-f="{esc(fkey)}"{da}><div class="strip-label">{d}{esc(label)}</div>'
             f'<div class="strip-count">{count}</div><div class="strip-value">{sar(value)}</div></div>')
 
 
@@ -221,12 +226,15 @@ def page2(R):
     leg1 = R["leg1"]
     c, v = leg1["counts"], leg1["values"]
     total_n = sum(c.values()); total_v = sum(v.values())
-    strip = _strip_cell("All", "", total_n, total_v, first=True)
+    strip = _strip_cell("All", "", total_n, total_v, first=True, drill="leg1.all")
     dots = {"Exact match": "y", "Amount mismatch": "p", "Missing in AR": "n",
             "Missing in GL": "n", "Out of scope by design": "x"}
+    drills = {"Exact match": "leg1.exact_match", "Amount mismatch": "leg1.amount_mismatch",
+              "Missing in AR": "leg1.missing_in_ar", "Missing in GL": "leg1.missing_in_gl",
+              "Out of scope by design": "leg1.out_of_scope"}
     for cat in leg1["order"]:
         strip += _strip_cell("Out of scope" if cat == "Out of scope by design" else cat,
-                             dots[cat], c[cat], v[cat])
+                             dots[cat], c[cat], v[cat], drill=drills[cat])
 
     rows = ""
     df = leg1["rows"].sort_values(["category", "grain_key"])
@@ -284,12 +292,13 @@ def _rate(r):
 def page3(R):
     leg2 = R["leg2"]
     c = leg2["counts"]
-    strip = _strip_cell("All", "", sum(c.values()), 0, first=True)
-    dmap = [("Exact match", "y"), ("Amount mismatch", "p"), ("Missing in e-invoice", "n"),
-            ("Missing in AR", "n"), ("Submitted but not accepted", "n"),
-            ("Suggested combination", "p"), ("Out of period", "x")]
-    for label, dk in dmap:
-        strip += _strip_cell(label, dk, c.get(label, 0), 0)
+    strip = _strip_cell("All", "", sum(c.values()), 0, first=True, drill="leg2.all")
+    dmap = [("Exact match", "y", "leg2.exact_match"), ("Amount mismatch", "p", "leg2.amount_mismatch"),
+            ("Missing in e-invoice", "n", "leg2.missing_in_einvoice"), ("Missing in AR", "n", "leg2.missing_in_ar"),
+            ("Submitted but not accepted", "n", "leg2.not_accepted"),
+            ("Suggested combination", "p", "leg2.suggested"), ("Out of period", "x", "leg2.out_of_period")]
+    for label, dk, drill in dmap:
+        strip += _strip_cell(label, dk, c.get(label, 0), 0, drill=drill)
 
     rows = ""
     er = leg2["einv_rows"].sort_values(["category", "einv_no"]) if len(leg2["einv_rows"]) else leg2["einv_rows"]
@@ -371,23 +380,29 @@ def _combo_blocks(R):
 
 # ------------------------------------------------------------------- page 4
 
+def _tw_slug(status):
+    import re as _re
+    return "threeway.status." + _re.sub(r"[^a-z]+", "_", status.lower()).strip("_")
+
+
 def page4(R):
     tw = R["threeway"]; flow = tw["flow"]
     fl = (f'<div class="flow">'
-          f'<div class="flow-col"><div class="label">Revenue and tax GL</div><div class="big">{flow["gl"]["n"]}</div><div class="sub">{sar(flow["gl"]["value_h"])}</div></div>'
+          f'<div class="flow-col" data-drill="threeway.flow_gl"><div class="label">Revenue and tax GL</div><div class="big">{flow["gl"]["n"]}</div><div class="sub">{sar(flow["gl"]["value_h"])}</div></div>'
           f'<div class="flow-arrow">&rarr;</div>'
-          f'<div class="flow-col"><div class="label">Customer GL</div><div class="big">{flow["ar"]["n"]}</div><div class="sub">{sar(flow["ar"]["value_h"])}</div></div>'
+          f'<div class="flow-col" data-drill="threeway.flow_ar"><div class="label">Customer GL</div><div class="big">{flow["ar"]["n"]}</div><div class="sub">{sar(flow["ar"]["value_h"])}</div></div>'
           f'<div class="flow-arrow">&rarr;</div>'
-          f'<div class="flow-col"><div class="label">E-invoice reported</div><div class="big">{flow["einv"]["n"]}</div><div class="sub">{sar(flow["einv"]["value_h"])}</div></div></div>')
+          f'<div class="flow-col" data-drill="threeway.flow_einv"><div class="label">E-invoice reported</div><div class="big">{flow["einv"]["n"]}</div><div class="sub">{sar(flow["einv"]["value_h"])}</div></div></div>')
     rows = ""
     df = tw["events"].sort_values(["status", "grain_key", "document_number"], na_position="last")
     for _, r in df.iterrows():
+        status_cell = f'<span data-drill="{_tw_slug(r["status"])}">{badge(r["status"])}</span>'
         rows += (f'<tr><td class="mono">{esc(r["voucher_number"])}</td><td class="mono">{esc(r["document_number"])}</td>'
                  f'<td>{_date(r["date"])}</td><td class="wrapcell">{esc(r["customer_name"])}</td><td class="mono">{esc(r["customer_vat"])}</td>'
                  f'<td>{present("Yes" if r["in_gl"] else "No")}</td><td>{present("Yes" if r["in_ar"] else "No")}</td>'
                  f'<td>{present(r["einvoice"])}</td>'
                  f'<td class="num">{H(r["taxable_h"])}</td><td class="num">{H(r["vat_h"])}</td>'
-                 f'<td>{badge(r["status"])}</td><td class="wrapcell">{esc(r["action"])}</td></tr>')
+                 f'<td>{status_cell}</td><td class="wrapcell">{esc(r["action"])}</td></tr>')
     return f"""
     <div class="main">
       <div class="section-eyebrow">Combined view</div>
@@ -411,11 +426,15 @@ def page4(R):
 def page5(R):
     cv = R["customers"]
     rows = ""
-    for _, r in cv.iterrows():
-        rows += (f'<tr><td class="wrapcell">{esc(r["customer_name"])}</td><td class="mono">{esc(r["customer_vat"])}</td>'
+    for i, r in cv.iterrows():
+        b = f"customer.{i}"
+        rows += (f'<tr><td class="wrapcell"><span class="cust-link" data-drill="{b}.all">{esc(r["customer_name"])}</span></td>'
+                 f'<td class="mono">{esc(r["customer_vat"])}</td>'
                  f'<td class="num">{r["vouchers"]}</td><td class="num">{H(r["taxable_h"])}</td><td class="num">{H(r["vat_h"])}</td>'
-                 f'<td class="num grp">{r["fully_reconciled_n"]}</td><td class="num">{r["not_einvoiced_n"]}</td>'
-                 f'<td class="num">{r["not_booked_n"]}</td><td class="num">{r["differences_n"]}</td>'
+                 f'<td class="num grp" data-drill="{b}.fully_reconciled">{r["fully_reconciled_n"]}</td>'
+                 f'<td class="num" data-drill="{b}.not_einvoiced">{r["not_einvoiced_n"]}</td>'
+                 f'<td class="num" data-drill="{b}.not_booked">{r["not_booked_n"]}</td>'
+                 f'<td class="num" data-drill="{b}.differences">{r["differences_n"]}</td>'
                  f'<td class="wrapcell">{esc(r["highest_risk"])}</td></tr>')
     if not rows:
         rows = '<tr><td colspan="10" class="muted" style="padding:20px">No customers</td></tr>'
@@ -442,24 +461,31 @@ def page6(R):
     ranges = per["ranges"]
     excl = q["excluded"]
     cards = [
-        ("Reconciled window", f'{_date(per["from"])} to {_date(per["to"])}', "", "Common period across all three files"),
-        ("Out of period", str(_count(q, "Out of period")), "a", "Excluded from all exposure figures"),
-        ("Test data quarantined", str(_count(q, "Test data quarantined")), "a", "Document numbers matching test patterns"),
-        ("Duplicate submissions", str(_count(q, "Duplicate submissions")), "a", "Same document number, multiple attempts"),
-        ("Invalid VAT numbers", str(_count(q, "Invalid VAT numbers")), "a", "Not a valid 15 digit KSA TIN"),
-        ("Missing VAT numbers", str(_count(q, "Missing VAT numbers")), "a", "Blank on the customer record"),
-        ("Excluded accounts", str(excl["gl"]["rows"] + excl["ar"]["rows"]), "", "Interest, forex, intercompany, deferred"),
-        ("Unclassified rows", str(_count(q, "Unclassified rows")), "a", "Null gl_classification, sent to review"),
+        ("Reconciled window", f'{_date(per["from"])} to {_date(per["to"])}', "", "Common period across all three files", None),
+        ("Out of period", str(_count(q, "Out of period")), "a", "Excluded from all exposure figures", "dq.out_of_period"),
+        ("Test data quarantined", str(_count(q, "Test data quarantined")), "a", "Document numbers matching test patterns", "dq.test_data"),
+        ("Duplicate submissions", str(_count(q, "Duplicate submissions")), "a", "Same document number, multiple attempts", "dq.duplicate"),
+        ("Invalid VAT numbers", str(_count(q, "Invalid VAT numbers")), "a", "Not a valid 15 digit KSA TIN", "dq.invalid_vat"),
+        ("Missing VAT numbers", str(_count(q, "Missing VAT numbers")), "a", "Blank on the customer record", "dq.missing_vat"),
+        ("Excluded accounts", str(excl["gl"]["rows"] + excl["ar"]["rows"]), "", "Interest, forex, intercompany, deferred", "dq.excluded"),
+        ("Unclassified rows", str(_count(q, "Unclassified rows")), "a", "Null gl_classification, sent to review", "dq.unclassified"),
     ]
     card_html = ""
-    for l, v, c, n in cards:
+    for l, v, c, n, drill in cards:
         style = ' style="font-size:15px"' if l == "Reconciled window" else ""
-        card_html += (f'<div class="mcard"><div class="mcard-label">{esc(l)}</div>'
+        da = f' drillable" data-drill="{drill}' if drill else ""
+        card_html += (f'<div class="mcard{da}"><div class="mcard-label">{esc(l)}</div>'
                       f'<div class="mcard-value {c}"{style}>{esc(v)}</div><div class="mcard-note">{esc(n)}</div></div>')
 
+    dq_ids = {"Out of period": "dq.out_of_period", "Test data quarantined": "dq.test_data",
+              "Duplicate submissions": "dq.duplicate", "Invalid VAT numbers": "dq.invalid_vat",
+              "Missing VAT numbers": "dq.missing_vat", "Unclassified rows": "dq.unclassified",
+              "VAT output with no revenue line": "dq.vat_no_revenue", "Excluded accounts": "dq.excluded"}
     detail = ""
     for chk in q["checks"]:
-        detail += (f'<tr><td>{esc(chk["check"])}</td><td class="num">{chk["rows"]}</td>'
+        did = dq_ids.get(chk["check"])
+        da = f' data-drill="{did}"' if did else ""
+        detail += (f'<tr{da}><td>{esc(chk["check"])}</td><td class="num">{chk["rows"]}</td>'
                    f'<td class="num">{H(chk["value_h"])}</td><td class="wrapcell">{esc(chk["effect"])}</td>'
                    f'<td class="wrapcell muted">{esc(chk["examples"])}</td></tr>')
     decisions = "".join(f"<li>{esc(d['text'])}</li>" for d in q["open_decisions"])
