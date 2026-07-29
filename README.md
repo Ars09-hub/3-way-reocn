@@ -31,6 +31,55 @@ python run.py \
 python evals/run_evals.py
 ```
 
+## GCC Command Center
+
+Each `run.py` invocation produces a per-run `dashboard.html` for one
+country / client / period. The **Command Center** rolls up many such runs into
+a single portfolio control tower — the view a group controller or GCC (Global
+Capability Center) tax lead opens first: which engagements are clean, where the
+tax value at risk sits, what is waiting on a human decision, and whether any run
+is operationally unhealthy.
+
+```bash
+# produce a few runs (one engagement each)
+python run.py --country MY --client demo-b2b-sap \
+  --gl data/b2b/gl.csv --ar data/b2b/ar.csv --einv data/b2b/einv.csv \
+  --period 2026-06 --out out/b2b
+python run.py --country SA --client demo-b2b-sap \
+  --gl data/b2b/gl.csv --ar data/b2b/ar.csv --einv data/b2b/einv.csv \
+  --period 2026-06 --out out/sa-b2b
+
+# roll every completed run under out/ into one control tower
+python command_center.py --scan out --out out/command_center.html
+
+# or name the run directories explicitly
+python command_center.py --runs out/b2b out/sa-b2b out/b2c \
+  --out out/command_center.html --title "GCC Q2 estate"
+
+# open out/command_center.html
+```
+
+The Command Center reads only the artifacts a run already writes
+(`coverage_summary.json`, `run_manifest.json`, `recon_units.csv`), so it stays
+decoupled from the engine and can aggregate historical runs after the fact.
+Currency and pack metadata are enriched, best-effort, from `config/`. It carries
+the engine's guardrail forward: **monetary value is never summed across
+currencies** — portfolio money is reported per-currency, and the only
+estate-wide scalars are counts and value-weighted percentages. Five pages,
+self-contained, no external runtime dependencies:
+
+1. **Command Center** — estate briefing, portfolio KPIs, posture bar, and a
+   "needs attention first" list ranked by posture then value at risk.
+2. **Estate map** — one sortable row per engagement (assurance, exposure,
+   suggestions, exceptions, unexplained residual, quarantine, conservation, pack
+   completeness).
+3. **Risk register** — every open exception across the estate, tagged with its
+   engagement and ranked by severity then value.
+4. **Suggestion backlog** — aggregate T3–T5 queue depth by confidence band, with
+   ambiguous and heuristic counts and value awaiting decision.
+5. **Operations** — conservation, partial-pack warnings, quarantine, engine
+   version drift, and run freshness / footprint.
+
 ## How it works
 
 The pipeline is a strict sequence of deterministic stages (see `core/pipeline.py`):
