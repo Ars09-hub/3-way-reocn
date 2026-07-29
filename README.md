@@ -31,11 +31,11 @@ python run.py \
 python evals/run_evals.py
 ```
 
-## GCC Command Center
+## Portfolio control tower (universal recon)
 
 Each `run.py` invocation produces a per-run `dashboard.html` for one
-country / client / period. The **Command Center** rolls up many such runs into
-a single portfolio control tower — the view a group controller or GCC (Global
+country / client / period. The **control tower** rolls up many such runs into
+a single portfolio view — the view a group controller or GCC (Global
 Capability Center) tax lead opens first: which engagements are clean, where the
 tax value at risk sits, what is waiting on a human decision, and whether any run
 is operationally unhealthy.
@@ -79,6 +79,46 @@ self-contained, no external runtime dependencies:
    ambiguous and heuristic counts and value awaiting decision.
 5. **Operations** — conservation, partial-pack warnings, quarantine, engine
    version drift, and run freshness / footprint.
+
+## GCC eInvoicing Command Center
+
+A separate, GCC-only executive surface built to the `gcc-einvoice-command-center`
+skill. Scope is exactly **UAE (FTA, AED, 5%), KSA (ZATCA, SAR, 15%) and Oman
+(OTA, OMR, 5%)**. This is an eInvoicing command center, not the universal-recon
+control tower above, and it does not share that template.
+
+```bash
+# reads the three GCC workbooks under gcc-data/ and writes one self-contained file
+python build_gcc_command_center.py --out out/gcc/command_center.html
+```
+
+Every figure is derived from the real workbooks in `gcc-data/`
+(`{UAE,KSA,OMN}_einvoice_recon_dataset.xlsx`, sheets `GL_Sales`, `GL_Purchase`,
+`Einvoice_Sales`, `Einvoice_Purchase`, `Recon_Sales`, `Recon_Purchase`) plus
+`run_index.json`. The builder prints the country set and one real headline number
+per country in native currency before it renders anything, and a checker pass
+re-derives every headline (VAT at risk, adherence, by-system and by-cause splits)
+straight from the rows.
+
+House rules, enforced on every build: GCC only (no France, Malaysia, India, EUR
+or MYR); amounts are never summed across currencies; plain-English finding labels
+only (internal codes such as `MM-VAL` stay in the rulebook); Level 3 / 2 / 1
+severity; no em dashes; single self-contained HTML. It carries both metric
+families, tied together:
+
+- **Pipeline (AR and AP):** applicable, generated, generation failed, ingestion
+  (landing) failed, cleared / reported, on-time vs delayed, missed / not reported.
+- **Reconciliation (AR and AP):** matched, tax / taxable value mismatch, rate /
+  category mismatch, customer TIN mismatch, metadata mismatch, status conflict,
+  missing in e-invoice, missing in GL, out of scope. KSA AP is labelled
+  **client-provided** (no ZATCA buyer feed).
+
+Two-dimensional navigation: three country cards (scope switcher) plus three
+perspective tabs (Compliance posture, Exceptions and aging, Reconciliation), with
+an **Executive** and a **Tax and Compliance** persona view. Penalty exposure is
+priced where the schedule is public (UAE) and shown as a "not tracked yet" gap
+card where it is not (KSA, Oman). Code lives in `gcc_command_center/`
+(`compute.py` derives the figures, `build.py` renders the HTML).
 
 ## How it works
 
