@@ -23,6 +23,31 @@ Each workbook contains six sheets:
 - `Recon_Sales`, `Recon_Purchase` — the reconciliation view keyed by
   `recon_state` / `sub_bucket_code` with per-document deltas and VAT at risk.
 
+## Running the engine on these datasets
+
+The workbooks are doc-level and the engine consumes line-level `gl.csv` plus
+`ar.csv` and `einv.csv`, so a converter reshapes the *sales* side (GL_Sales +
+Einvoice_Sales) into that contract. The purchase side is a separate input-tax
+reconciliation and is out of scope for this engine's R/C/E output-VAT model.
+
+```bash
+# reshape every dataset in run_index.json into data/gcc/<ISO3>/{gl,ar,einv}.csv
+python gcc-data/to_engine_csv.py            # or --iso3 OMN for one country
+
+# run the engine (country pack <-> dataset: AE/UAE, SA/KSA, OM/OMN)
+python run.py --country OM --client gcc-einvoice \
+  --gl data/gcc/OMN/gl.csv --ar data/gcc/OMN/ar.csv --einv data/gcc/OMN/einv.csv \
+  --out out/gcc-OMN
+
+# open out/gcc-OMN/dashboard.html
+```
+
+The reshaping uses the `gcc-einvoice` client profile
+(`config/client-profiles/gcc-einvoice.profile.json`), whose `field_mapping`
+matches the column names the converter emits. Multi-line invoices (the same
+document number across several tax codes) aggregate to one GL document, so the
+GL document count is lower than the raw AR row count by design.
+
 ## `run_index.json`
 
 Machine-readable index of the datasets in this folder. For each dataset it
