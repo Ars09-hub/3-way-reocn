@@ -1,0 +1,718 @@
+{
+  "schema": "gcc-einvoice-recon-run-index/v1",
+  "generated_utc": "2026-07-29T06:28:30.724318+00:00",
+  "region": "GCC",
+  "description": "Index of GCC e-invoice reconciliation datasets (GL, e-invoice and recon planes) for UAE, KSA and Oman.",
+  "dataset_count": 3,
+  "datasets": [
+    {
+      "dataset_id": "ksa",
+      "country_iso3": "KSA",
+      "country_pack": "SA",
+      "file": "gcc-data/KSA_einvoice_recon_dataset.xlsx",
+      "sha256": "9dec71daf5559a17ed04700cb1b7cd59998e30ed18ea88c198f64f33011c13c6",
+      "bytes": 43836,
+      "currency": "SAR",
+      "tax_rates": [
+        0,
+        0.15
+      ],
+      "entities": [
+        {
+          "entity_id": "K1",
+          "entity_name": "ABC Retail KSA Co."
+        },
+        {
+          "entity_id": "K2",
+          "entity_name": "ABC Trading KSA Co."
+        }
+      ],
+      "source_systems": [
+        "ORACLE_KSA",
+        "SAP_KSA"
+      ],
+      "total_data_rows": 251,
+      "recon_state_totals": {
+        "exact_match": 30,
+        "mismatch": 22,
+        "missing_in_einvoice": 20,
+        "missing_in_gl": 8,
+        "out_of_scope": 9
+      },
+      "sheets": [
+        {
+          "name": "GL_Sales",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "seller_tin",
+            "source_system",
+            "voucher_no",
+            "gl_line_no",
+            "voucher_date",
+            "posting_date",
+            "document_no",
+            "doc_type",
+            "transaction_type",
+            "customer_name",
+            "customer_tin",
+            "gl_account",
+            "gl_description",
+            "tax_code",
+            "tax_rate",
+            "taxable_value",
+            "tax_value",
+            "currency"
+          ],
+          "data_rows": 69,
+          "date_range": {
+            "min": "2026-06-16",
+            "max": "2026-07-19"
+          }
+        },
+        {
+          "name": "GL_Purchase",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "buyer_tin",
+            "source_system",
+            "voucher_no",
+            "gl_line_no",
+            "voucher_date",
+            "posting_date",
+            "document_no",
+            "doc_type",
+            "expense_category",
+            "vendor_name",
+            "vendor_tin",
+            "gl_account",
+            "gl_description",
+            "tax_code",
+            "tax_rate",
+            "taxable_value",
+            "input_tax_value",
+            "itc_eligibility",
+            "currency"
+          ],
+          "data_rows": 30,
+          "date_range": {
+            "min": "2026-06-17",
+            "max": "2026-07-21"
+          }
+        },
+        {
+          "name": "Einvoice_Sales",
+          "columns": [
+            "invoice_number",
+            "uuid",
+            "issue_date",
+            "issue_time",
+            "invoice_type_code",
+            "invoice_subtype",
+            "invoice_transaction_type",
+            "seller_vat_number",
+            "buyer_vat_number",
+            "icv",
+            "pih",
+            "qr_code_present",
+            "tax_category_code",
+            "tax_rate",
+            "vatex_sa_code",
+            "line_extension_amount",
+            "tax_exclusive_amount",
+            "tax_amount",
+            "tax_inclusive_amount",
+            "payable_amount",
+            "clearance_status",
+            "clearance_timestamp",
+            "reporting_deadline_hrs"
+          ],
+          "data_rows": 43,
+          "date_range": {
+            "min": "2026-06-16",
+            "max": "2026-07-15"
+          }
+        },
+        {
+          "name": "Einvoice_Purchase",
+          "columns": [
+            "invoice_number",
+            "uuid",
+            "issue_date",
+            "issue_time",
+            "invoice_type_code",
+            "invoice_subtype",
+            "invoice_transaction_type",
+            "seller_vat_number",
+            "buyer_vat_number",
+            "icv",
+            "pih",
+            "qr_code_present",
+            "tax_category_code",
+            "tax_rate",
+            "vatex_sa_code",
+            "line_extension_amount",
+            "tax_exclusive_amount",
+            "tax_amount",
+            "tax_inclusive_amount",
+            "payable_amount",
+            "clearance_status",
+            "clearance_timestamp",
+            "reporting_deadline_hrs"
+          ],
+          "data_rows": 20,
+          "date_range": {
+            "min": "2026-06-27",
+            "max": "2026-07-15"
+          }
+        },
+        {
+          "name": "Recon_Sales",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "tin",
+            "side",
+            "source_system",
+            "voucher_no",
+            "document_no",
+            "recon_state",
+            "sub_bucket_code",
+            "finding_label",
+            "severity",
+            "gl_taxable",
+            "gl_tax",
+            "einv_taxable",
+            "einv_tax",
+            "value_delta",
+            "vat_at_risk",
+            "authority_status",
+            "on_time_flag",
+            "currency",
+            "penalty_class",
+            "owning_team"
+          ],
+          "data_rows": 56,
+          "recon_state_counts": {
+            "exact_match": 20,
+            "mismatch": 15,
+            "missing_in_einvoice": 12,
+            "missing_in_gl": 5,
+            "out_of_scope": 4
+          }
+        },
+        {
+          "name": "Recon_Purchase",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "tin",
+            "side",
+            "source_system",
+            "voucher_no",
+            "document_no",
+            "recon_state",
+            "sub_bucket_code",
+            "finding_label",
+            "severity",
+            "gl_taxable",
+            "gl_tax",
+            "einv_taxable",
+            "einv_tax",
+            "value_delta",
+            "input_vat_at_risk",
+            "vendor_name",
+            "data_source",
+            "on_time_flag",
+            "currency",
+            "owning_team"
+          ],
+          "data_rows": 33,
+          "recon_state_counts": {
+            "exact_match": 10,
+            "mismatch": 7,
+            "missing_in_einvoice": 8,
+            "missing_in_gl": 3,
+            "out_of_scope": 5
+          }
+        }
+      ]
+    },
+    {
+      "dataset_id": "omn",
+      "country_iso3": "OMN",
+      "country_pack": "OM",
+      "file": "gcc-data/OMN_einvoice_recon_dataset.xlsx",
+      "sha256": "c2ad4d26e2a6559eda2632f60d52e1e23738c54144dbe4784c4dc5e88e974a99",
+      "bytes": 41621,
+      "currency": "OMR",
+      "tax_rates": [
+        0,
+        0.05
+      ],
+      "entities": [
+        {
+          "entity_id": "O1",
+          "entity_name": "ABC Oman LLC"
+        },
+        {
+          "entity_id": "O2",
+          "entity_name": "ABC Muscat Trading LLC"
+        }
+      ],
+      "source_systems": [
+        "D365POS_OMN",
+        "SAP_OMN"
+      ],
+      "total_data_rows": 253,
+      "recon_state_totals": {
+        "exact_match": 30,
+        "mismatch": 22,
+        "missing_in_einvoice": 20,
+        "missing_in_gl": 8,
+        "out_of_scope": 9
+      },
+      "sheets": [
+        {
+          "name": "GL_Sales",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "seller_tin",
+            "source_system",
+            "voucher_no",
+            "gl_line_no",
+            "voucher_date",
+            "posting_date",
+            "document_no",
+            "doc_type",
+            "transaction_type",
+            "customer_name",
+            "customer_tin",
+            "gl_account",
+            "gl_description",
+            "tax_code",
+            "tax_rate",
+            "taxable_value",
+            "tax_value",
+            "currency"
+          ],
+          "data_rows": 69,
+          "date_range": {
+            "min": "2026-06-18",
+            "max": "2026-07-18"
+          }
+        },
+        {
+          "name": "GL_Purchase",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "buyer_tin",
+            "source_system",
+            "voucher_no",
+            "gl_line_no",
+            "voucher_date",
+            "posting_date",
+            "document_no",
+            "doc_type",
+            "expense_category",
+            "vendor_name",
+            "vendor_tin",
+            "gl_account",
+            "gl_description",
+            "tax_code",
+            "tax_rate",
+            "taxable_value",
+            "input_tax_value",
+            "itc_eligibility",
+            "currency"
+          ],
+          "data_rows": 30,
+          "date_range": {
+            "min": "2026-06-18",
+            "max": "2026-07-17"
+          }
+        },
+        {
+          "name": "Einvoice_Sales",
+          "columns": [
+            "invoice_number",
+            "peppol_message_id",
+            "issue_date",
+            "invoice_type_code",
+            "document_currency_code",
+            "seller_name",
+            "seller_vat_number",
+            "buyer_name",
+            "buyer_vat_number",
+            "tax_category_code",
+            "tax_rate",
+            "line_extension_amount",
+            "tax_exclusive_amount",
+            "tax_amount",
+            "tax_inclusive_amount",
+            "payable_amount",
+            "ota_status",
+            "status_timestamp"
+          ],
+          "data_rows": 43,
+          "date_range": {
+            "min": "2026-06-16",
+            "max": "2026-07-15"
+          }
+        },
+        {
+          "name": "Einvoice_Purchase",
+          "columns": [
+            "invoice_number",
+            "peppol_message_id",
+            "issue_date",
+            "invoice_type_code",
+            "document_currency_code",
+            "seller_name",
+            "seller_vat_number",
+            "buyer_name",
+            "buyer_vat_number",
+            "tax_category_code",
+            "tax_rate",
+            "line_extension_amount",
+            "tax_exclusive_amount",
+            "tax_amount",
+            "tax_inclusive_amount",
+            "payable_amount",
+            "ota_status",
+            "status_timestamp"
+          ],
+          "data_rows": 22,
+          "date_range": {
+            "min": "2026-06-16",
+            "max": "2026-07-15"
+          }
+        },
+        {
+          "name": "Recon_Sales",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "tin",
+            "side",
+            "source_system",
+            "voucher_no",
+            "document_no",
+            "recon_state",
+            "sub_bucket_code",
+            "finding_label",
+            "severity",
+            "gl_taxable",
+            "gl_tax",
+            "einv_taxable",
+            "einv_tax",
+            "value_delta",
+            "vat_at_risk",
+            "authority_status",
+            "on_time_flag",
+            "currency",
+            "penalty_class",
+            "owning_team"
+          ],
+          "data_rows": 56,
+          "recon_state_counts": {
+            "exact_match": 20,
+            "mismatch": 15,
+            "missing_in_einvoice": 12,
+            "missing_in_gl": 5,
+            "out_of_scope": 4
+          }
+        },
+        {
+          "name": "Recon_Purchase",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "tin",
+            "side",
+            "source_system",
+            "voucher_no",
+            "document_no",
+            "recon_state",
+            "sub_bucket_code",
+            "finding_label",
+            "severity",
+            "gl_taxable",
+            "gl_tax",
+            "einv_taxable",
+            "einv_tax",
+            "value_delta",
+            "input_vat_at_risk",
+            "vendor_name",
+            "data_source",
+            "on_time_flag",
+            "currency",
+            "owning_team"
+          ],
+          "data_rows": 33,
+          "recon_state_counts": {
+            "exact_match": 10,
+            "mismatch": 7,
+            "missing_in_einvoice": 8,
+            "missing_in_gl": 3,
+            "out_of_scope": 5
+          }
+        }
+      ]
+    },
+    {
+      "dataset_id": "uae",
+      "country_iso3": "UAE",
+      "country_pack": "AE",
+      "file": "gcc-data/UAE_einvoice_recon_dataset.xlsx",
+      "sha256": "3609f4dc56aac53651bed23a9a19c705c26fcd125fdddfb101ad8c0d98dec077",
+      "bytes": 43812,
+      "currency": "AED",
+      "tax_rates": [
+        0,
+        0.05
+      ],
+      "entities": [
+        {
+          "entity_id": "E3",
+          "entity_name": "ABC Lifestyle UAE LLC"
+        },
+        {
+          "entity_id": "E8",
+          "entity_name": "ABC Holding UAE LLC"
+        },
+        {
+          "entity_id": "E1",
+          "entity_name": "ABC Retail UAE LLC"
+        }
+      ],
+      "source_systems": [
+        "D365POS_UAE",
+        "ORACLE_UAE",
+        "SAP_UAE"
+      ],
+      "total_data_rows": 253,
+      "recon_state_totals": {
+        "exact_match": 30,
+        "mismatch": 22,
+        "missing_in_einvoice": 20,
+        "missing_in_gl": 8,
+        "out_of_scope": 9
+      },
+      "sheets": [
+        {
+          "name": "GL_Sales",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "seller_tin",
+            "source_system",
+            "voucher_no",
+            "gl_line_no",
+            "voucher_date",
+            "posting_date",
+            "document_no",
+            "doc_type",
+            "transaction_type",
+            "customer_name",
+            "customer_tin",
+            "gl_account",
+            "gl_description",
+            "tax_code",
+            "tax_rate",
+            "taxable_value",
+            "tax_value",
+            "currency"
+          ],
+          "data_rows": 69,
+          "date_range": {
+            "min": "2026-06-16",
+            "max": "2026-07-16"
+          }
+        },
+        {
+          "name": "GL_Purchase",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "buyer_tin",
+            "source_system",
+            "voucher_no",
+            "gl_line_no",
+            "voucher_date",
+            "posting_date",
+            "document_no",
+            "doc_type",
+            "expense_category",
+            "vendor_name",
+            "vendor_tin",
+            "gl_account",
+            "gl_description",
+            "tax_code",
+            "tax_rate",
+            "taxable_value",
+            "input_tax_value",
+            "itc_eligibility",
+            "currency"
+          ],
+          "data_rows": 30,
+          "date_range": {
+            "min": "2026-06-21",
+            "max": "2026-07-20"
+          }
+        },
+        {
+          "name": "Einvoice_Sales",
+          "columns": [
+            "invoice_number",
+            "peppol_message_id",
+            "issue_date",
+            "invoice_type_code",
+            "document_currency_code",
+            "seller_name",
+            "seller_trn",
+            "seller_emirate",
+            "buyer_name",
+            "buyer_trn",
+            "buyer_emirate",
+            "transaction_type_flag",
+            "tax_category_code",
+            "tax_rate",
+            "line_extension_amount",
+            "tax_exclusive_amount",
+            "tax_amount",
+            "tax_inclusive_amount",
+            "payable_amount",
+            "exemption_reason_code",
+            "mls_status",
+            "fta_reporting_status",
+            "reporting_timestamp"
+          ],
+          "data_rows": 43,
+          "date_range": {
+            "min": "2026-06-16",
+            "max": "2026-07-13"
+          }
+        },
+        {
+          "name": "Einvoice_Purchase",
+          "columns": [
+            "invoice_number",
+            "peppol_message_id",
+            "issue_date",
+            "invoice_type_code",
+            "document_currency_code",
+            "seller_name",
+            "seller_trn",
+            "seller_emirate",
+            "buyer_name",
+            "buyer_trn",
+            "buyer_emirate",
+            "transaction_type_flag",
+            "tax_category_code",
+            "tax_rate",
+            "line_extension_amount",
+            "tax_exclusive_amount",
+            "tax_amount",
+            "tax_inclusive_amount",
+            "payable_amount",
+            "exemption_reason_code",
+            "mls_status",
+            "fta_reporting_status",
+            "reporting_timestamp"
+          ],
+          "data_rows": 22,
+          "date_range": {
+            "min": "2026-06-17",
+            "max": "2026-07-15"
+          }
+        },
+        {
+          "name": "Recon_Sales",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "tin",
+            "side",
+            "source_system",
+            "voucher_no",
+            "document_no",
+            "recon_state",
+            "sub_bucket_code",
+            "finding_label",
+            "severity",
+            "gl_taxable",
+            "gl_tax",
+            "einv_taxable",
+            "einv_tax",
+            "value_delta",
+            "vat_at_risk",
+            "authority_status",
+            "on_time_flag",
+            "currency",
+            "penalty_class",
+            "owning_team"
+          ],
+          "data_rows": 56,
+          "recon_state_counts": {
+            "exact_match": 20,
+            "mismatch": 15,
+            "missing_in_einvoice": 12,
+            "missing_in_gl": 5,
+            "out_of_scope": 4
+          }
+        },
+        {
+          "name": "Recon_Purchase",
+          "columns": [
+            "country",
+            "entity_id",
+            "entity_name",
+            "tin",
+            "side",
+            "source_system",
+            "voucher_no",
+            "document_no",
+            "recon_state",
+            "sub_bucket_code",
+            "finding_label",
+            "severity",
+            "gl_taxable",
+            "gl_tax",
+            "einv_taxable",
+            "einv_tax",
+            "value_delta",
+            "input_vat_at_risk",
+            "vendor_name",
+            "data_source",
+            "on_time_flag",
+            "currency",
+            "owning_team"
+          ],
+          "data_rows": 33,
+          "recon_state_counts": {
+            "exact_match": 10,
+            "mismatch": 7,
+            "missing_in_einvoice": 8,
+            "missing_in_gl": 3,
+            "out_of_scope": 5
+          }
+        }
+      ]
+    }
+  ]
+}
