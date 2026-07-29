@@ -48,6 +48,22 @@ matches the column names the converter emits. Multi-line invoices (the same
 document number across several tax codes) aggregate to one GL document, so the
 GL document count is lower than the raw AR row count by design.
 
+## Validating against ground truth
+
+Each workbook's `Recon_Sales` sheet carries the intended outcome per document
+(`recon_state` / `sub_bucket_code`). `evals/gcc_ground_truth.py` runs the engine
+on all three converted datasets and asserts it reproduces the outcomes an
+amount-based three-way engine is designed to determine — clean matches, booked
+-but-unreported (E2) and reported-but-unbooked (E7) — at 100%, and prints a
+confusion matrix for the remaining business-rule overlays (late reporting, TIN
+/ metadata / status diffs, out-of-scope supplies) that equal-amount matching
+cannot surface from the numbers alone.
+
+```bash
+python gcc-data/to_engine_csv.py     # ensure data/gcc/*/ is present
+python evals/gcc_ground_truth.py     # non-zero exit if any target is missed
+```
+
 ## `run_index.json`
 
 Machine-readable index of the datasets in this folder. For each dataset it
