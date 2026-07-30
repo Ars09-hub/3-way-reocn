@@ -1,0 +1,153 @@
+{
+  "live": [
+    {
+      "code": "UAE",
+      "name": "United Arab Emirates",
+      "authority": "FTA",
+      "model": "Peppol 5-corner (DCTCE)",
+      "currency": "AED",
+      "vat_rate": 0.05,
+      "status": "Live",
+      "on_time_rule": "14-day issuance window"
+    },
+    {
+      "code": "KSA",
+      "name": "Saudi Arabia",
+      "authority": "ZATCA (Fatoora)",
+      "model": "Clearance + reporting (two-track)",
+      "currency": "SAR",
+      "vat_rate": 0.15,
+      "status": "Live",
+      "on_time_rule": "Clear pre-issuance; simplified within 24h"
+    },
+    {
+      "code": "OMN",
+      "name": "Oman",
+      "authority": "OTA",
+      "model": "Peppol 5-corner (ASP)",
+      "currency": "OMR",
+      "vat_rate": 0.05,
+      "status": "Live",
+      "on_time_rule": "Rolling; large taxpayers first"
+    }
+  ],
+  "upcoming": [
+    {
+      "code": "BHR",
+      "name": "Bahrain",
+      "authority": "NBR",
+      "model": "National B2B system (in build)",
+      "currency": "BHD",
+      "vat_rate": 0.1,
+      "status": "Upcoming",
+      "note": "System design underway; mandate wave to be confirmed",
+      "expected_go_live": "To be confirmed",
+      "next_milestone": "NBR mandate wave announcement",
+      "readiness_pct": 25,
+      "readiness": [
+        {
+          "item": "Mandate and timeline confirmed",
+          "status": "Monitoring"
+        },
+        {
+          "item": "ASP / accreditation path",
+          "status": "Monitoring"
+        },
+        {
+          "item": "Entities and TINs scoped",
+          "status": "Done"
+        },
+        {
+          "item": "GL integration (GL Stream / SFTP)",
+          "status": "Not started"
+        },
+        {
+          "item": "Master data readiness (TRNs, tax categories)",
+          "status": "Not started"
+        },
+        {
+          "item": "Sandbox / pilot testing",
+          "status": "Not started"
+        }
+      ]
+    },
+    {
+      "code": "QAT",
+      "name": "Qatar",
+      "authority": "GTA",
+      "model": "Draft law approved (May 2026)",
+      "currency": "QAR",
+      "vat_rate": null,
+      "status": "Upcoming",
+      "note": "Rollout expected ~2027; VAT to follow",
+      "expected_go_live": "~2027 (phased by size)",
+      "next_milestone": "GTA implementing regulations",
+      "readiness_pct": 42,
+      "readiness": [
+        {
+          "item": "Mandate and timeline confirmed",
+          "status": "In progress"
+        },
+        {
+          "item": "ASP / accreditation path",
+          "status": "Not started"
+        },
+        {
+          "item": "Entities and TINs scoped",
+          "status": "Done"
+        },
+        {
+          "item": "GL integration (GL Stream / SFTP)",
+          "status": "In progress"
+        },
+        {
+          "item": "Master data readiness (TRNs, tax categories)",
+          "status": "In progress"
+        },
+        {
+          "item": "Sandbox / pilot testing",
+          "status": "Not started"
+        }
+      ]
+    },
+    {
+      "code": "KWT",
+      "name": "Kuwait",
+      "authority": "In development",
+      "model": "Early stage",
+      "currency": "KWD",
+      "vat_rate": null,
+      "status": "Upcoming",
+      "note": "No firm date announced",
+      "expected_go_live": "No firm date",
+      "next_milestone": "Government rollout timeline",
+      "readiness_pct": 12,
+      "readiness": [
+        {
+          "item": "Mandate and timeline confirmed",
+          "status": "Monitoring"
+        },
+        {
+          "item": "ASP / accreditation path",
+          "status": "Not started"
+        },
+        {
+          "item": "Entities and TINs scoped",
+          "status": "In progress"
+        },
+        {
+          "item": "GL integration (GL Stream / SFTP)",
+          "status": "Not started"
+        },
+        {
+          "item": "Master data readiness (TRNs, tax categories)",
+          "status": "Not started"
+        },
+        {
+          "item": "Sandbox / pilot testing",
+          "status": "Not started"
+        }
+      ]
+    }
+  ]
+}

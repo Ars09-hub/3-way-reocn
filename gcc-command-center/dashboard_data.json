@@ -1,0 +1,1594 @@
+{
+  "generated": "2026-07-30",
+  "run_timestamp": "2026-07-16T03:00:00",
+  "registry": {
+    "live": [
+      {
+        "code": "UAE",
+        "name": "United Arab Emirates",
+        "authority": "FTA",
+        "model": "Peppol 5-corner (DCTCE)",
+        "currency": "AED",
+        "vat_rate": 0.05,
+        "status": "Live",
+        "on_time_rule": "14-day issuance window"
+      },
+      {
+        "code": "KSA",
+        "name": "Saudi Arabia",
+        "authority": "ZATCA (Fatoora)",
+        "model": "Clearance + reporting (two-track)",
+        "currency": "SAR",
+        "vat_rate": 0.15,
+        "status": "Live",
+        "on_time_rule": "Clear pre-issuance; simplified within 24h"
+      },
+      {
+        "code": "OMN",
+        "name": "Oman",
+        "authority": "OTA",
+        "model": "Peppol 5-corner (ASP)",
+        "currency": "OMR",
+        "vat_rate": 0.05,
+        "status": "Live",
+        "on_time_rule": "Rolling; large taxpayers first"
+      }
+    ],
+    "upcoming": [
+      {
+        "code": "BHR",
+        "name": "Bahrain",
+        "authority": "NBR",
+        "model": "National B2B system (in build)",
+        "currency": "BHD",
+        "vat_rate": 0.1,
+        "status": "Upcoming",
+        "note": "System design underway; mandate wave to be confirmed",
+        "expected_go_live": "To be confirmed",
+        "next_milestone": "NBR mandate wave announcement",
+        "readiness_pct": 25,
+        "readiness": [
+          {
+            "item": "Mandate and timeline confirmed",
+            "status": "Monitoring"
+          },
+          {
+            "item": "ASP / accreditation path",
+            "status": "Monitoring"
+          },
+          {
+            "item": "Entities and TINs scoped",
+            "status": "Done"
+          },
+          {
+            "item": "GL integration (GL Stream / SFTP)",
+            "status": "Not started"
+          },
+          {
+            "item": "Master data readiness (TRNs, tax categories)",
+            "status": "Not started"
+          },
+          {
+            "item": "Sandbox / pilot testing",
+            "status": "Not started"
+          }
+        ]
+      },
+      {
+        "code": "QAT",
+        "name": "Qatar",
+        "authority": "GTA",
+        "model": "Draft law approved (May 2026)",
+        "currency": "QAR",
+        "vat_rate": null,
+        "status": "Upcoming",
+        "note": "Rollout expected ~2027; VAT to follow",
+        "expected_go_live": "~2027 (phased by size)",
+        "next_milestone": "GTA implementing regulations",
+        "readiness_pct": 42,
+        "readiness": [
+          {
+            "item": "Mandate and timeline confirmed",
+            "status": "In progress"
+          },
+          {
+            "item": "ASP / accreditation path",
+            "status": "Not started"
+          },
+          {
+            "item": "Entities and TINs scoped",
+            "status": "Done"
+          },
+          {
+            "item": "GL integration (GL Stream / SFTP)",
+            "status": "In progress"
+          },
+          {
+            "item": "Master data readiness (TRNs, tax categories)",
+            "status": "In progress"
+          },
+          {
+            "item": "Sandbox / pilot testing",
+            "status": "Not started"
+          }
+        ]
+      },
+      {
+        "code": "KWT",
+        "name": "Kuwait",
+        "authority": "In development",
+        "model": "Early stage",
+        "currency": "KWD",
+        "vat_rate": null,
+        "status": "Upcoming",
+        "note": "No firm date announced",
+        "expected_go_live": "No firm date",
+        "next_milestone": "Government rollout timeline",
+        "readiness_pct": 12,
+        "readiness": [
+          {
+            "item": "Mandate and timeline confirmed",
+            "status": "Monitoring"
+          },
+          {
+            "item": "ASP / accreditation path",
+            "status": "Not started"
+          },
+          {
+            "item": "Entities and TINs scoped",
+            "status": "In progress"
+          },
+          {
+            "item": "GL integration (GL Stream / SFTP)",
+            "status": "Not started"
+          },
+          {
+            "item": "Master data readiness (TRNs, tax categories)",
+            "status": "Not started"
+          },
+          {
+            "item": "Sandbox / pilot testing",
+            "status": "Not started"
+          }
+        ]
+      }
+    ]
+  },
+  "countries": {
+    "UAE": {
+      "currency": "AED",
+      "authority": "FTA",
+      "jurisdiction": "PINT AE (Peppol 5-corner)",
+      "documents": 91,
+      "matched": 34,
+      "match_pct": 37.4,
+      "vat_at_risk": 31909.11,
+      "exceptions": 48,
+      "sales": {
+        "documents": 58,
+        "matched": 24,
+        "match_pct": 41.4,
+        "vat_at_risk": 19947.21,
+        "exceptions": 30
+      },
+      "purchase": {
+        "documents": 33,
+        "matched": 10,
+        "match_pct": 30.3,
+        "vat_at_risk": 11961.9,
+        "exceptions": 18
+      },
+      "entities": [
+        {
+          "entity_id": "E3",
+          "entity_name": "ABC Lifestyle UAE LLC",
+          "side": "sales",
+          "source": "ORACLE_UAE",
+          "documents": 18,
+          "matched": 10,
+          "match_pct": 55.6,
+          "vat_at_risk": 4888.55,
+          "exceptions": 7
+        },
+        {
+          "entity_id": "E8",
+          "entity_name": "ABC Holding UAE LLC",
+          "side": "sales",
+          "source": "D365POS_UAE",
+          "documents": 22,
+          "matched": 8,
+          "match_pct": 36.4,
+          "vat_at_risk": 4618.39,
+          "exceptions": 12
+        },
+        {
+          "entity_id": "E1",
+          "entity_name": "ABC Retail UAE LLC",
+          "side": "sales",
+          "source": "SAP_UAE",
+          "documents": 18,
+          "matched": 6,
+          "match_pct": 33.3,
+          "vat_at_risk": 10440.27,
+          "exceptions": 11
+        },
+        {
+          "entity_id": "E1",
+          "entity_name": "ABC Retail UAE LLC",
+          "side": "purchase",
+          "source": "SAP_UAE",
+          "documents": 12,
+          "matched": 3,
+          "match_pct": 25.0,
+          "vat_at_risk": 6392.13,
+          "exceptions": 6
+        },
+        {
+          "entity_id": "E8",
+          "entity_name": "ABC Holding UAE LLC",
+          "side": "purchase",
+          "source": "D365POS_UAE",
+          "documents": 16,
+          "matched": 5,
+          "match_pct": 31.2,
+          "vat_at_risk": 3814.1,
+          "exceptions": 9
+        },
+        {
+          "entity_id": "E3",
+          "entity_name": "ABC Lifestyle UAE LLC",
+          "side": "purchase",
+          "source": "ORACLE_UAE",
+          "documents": 5,
+          "matched": 2,
+          "match_pct": 40.0,
+          "vat_at_risk": 1755.67,
+          "exceptions": 3
+        }
+      ],
+      "recon_state": {
+        "exact_match": 34,
+        "mismatch": 22,
+        "missing_in_einvoice": 18,
+        "missing_in_gl": 8,
+        "out_of_scope": 9
+      },
+      "recon_total": 91,
+      "var_by_team": {
+        "Tax / Compliance": 16522.72,
+        "Finance": 10623.29,
+        "IT": 4763.1,
+        "Billing": 0.0
+      },
+      "var_by_finding": {
+        "Missing e-invoice (not sent by vendor)": 7243.42,
+        "Invoice not reported to authority": 3734.61,
+        "E-invoice generation failed": 3392.88,
+        "Cancelled in GL but e-invoice still live": 3379.87,
+        "Missed booking (in e-invoice, no GL)": 2570.48,
+        "Unbooked revenue (e-invoice, no GL)": 2298.92
+      },
+      "cnt_by_team": {
+        "Billing": 48,
+        "Tax / Compliance": 28,
+        "Finance": 11,
+        "IT": 4
+      },
+      "cnt_by_severity": {
+        "Level 1": 40,
+        "Level 3": 32,
+        "Level 2": 19
+      },
+      "on_time": {
+        "True": 89,
+        "False": 2
+      },
+      "worklist_top": [
+        {
+          "document_no": "INV-UAE-500121",
+          "entity": "ABC Lifestyle UAE LLC",
+          "side": "sales",
+          "finding": "E-invoice generation failed",
+          "severity": "Level 3",
+          "vat": 1918.45,
+          "team": "IT",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-UAE-500134",
+          "entity": "ABC Retail UAE LLC",
+          "side": "sales",
+          "finding": "Submission failed at authority",
+          "severity": "Level 3",
+          "vat": 1907.55,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Failed",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-UAE-500120",
+          "entity": "ABC Retail UAE LLC",
+          "side": "sales",
+          "finding": "Cancelled in GL but e-invoice still live",
+          "severity": "Level 2",
+          "vat": 1838.28,
+          "team": "Finance",
+          "state": "missing_in_gl",
+          "authority": "Reported",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-UAE-500102",
+          "entity": "ABC Retail UAE LLC",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 1654.42,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-UAE-500119",
+          "entity": "ABC Retail UAE LLC",
+          "side": "sales",
+          "finding": "Cancelled in GL but e-invoice still live",
+          "severity": "Level 2",
+          "vat": 1541.59,
+          "team": "Finance",
+          "state": "missing_in_gl",
+          "authority": "Reported",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-UAE-500125",
+          "entity": "ABC Holding UAE LLC",
+          "side": "sales",
+          "finding": "E-invoice generation failed",
+          "severity": "Level 3",
+          "vat": 1474.43,
+          "team": "IT",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "BILL-UAE-500184",
+          "entity": "ABC Holding UAE LLC",
+          "side": "purchase",
+          "finding": "Missing e-invoice (not sent by vendor)",
+          "severity": "Level 2",
+          "vat": 1405.81,
+          "team": "Finance",
+          "state": "missing_in_einvoice",
+          "authority": "Received",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-UAE-500100",
+          "entity": "ABC Retail UAE LLC",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 1390.11,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "BILL-UAE-500191",
+          "entity": "ABC Retail UAE LLC",
+          "side": "purchase",
+          "finding": "Missing e-invoice (not sent by vendor)",
+          "severity": "Level 2",
+          "vat": 1348.24,
+          "team": "Finance",
+          "state": "missing_in_einvoice",
+          "authority": "Received",
+          "on_time": true
+        },
+        {
+          "document_no": "BILL-UAE-500189",
+          "entity": "ABC Retail UAE LLC",
+          "side": "purchase",
+          "finding": "Missing e-invoice (not sent by vendor)",
+          "severity": "Level 2",
+          "vat": 1339.61,
+          "team": "Finance",
+          "state": "missing_in_einvoice",
+          "authority": "Received",
+          "on_time": true
+        }
+      ],
+      "adherence": [
+        {
+          "date": "2026-06-16",
+          "pct": 79.6,
+          "on_time": 2,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-17",
+          "pct": 82.0,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-18",
+          "pct": 76.5,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-19",
+          "pct": 76.8,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-20",
+          "pct": 76.1,
+          "on_time": 2,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-21",
+          "pct": 76.9,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-22",
+          "pct": 78.5,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-23",
+          "pct": 78.8,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-24",
+          "pct": 74.0,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 2,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-25",
+          "pct": 80.8,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-26",
+          "pct": 79.9,
+          "on_time": 2,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-27",
+          "pct": 80.5,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-28",
+          "pct": 81.4,
+          "on_time": 2,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-29",
+          "pct": 73.8,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-30",
+          "pct": 79.1,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-01",
+          "pct": 82.8,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-02",
+          "pct": 74.0,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-03",
+          "pct": 79.8,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-04",
+          "pct": 78.9,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-05",
+          "pct": 77.4,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-06",
+          "pct": 83.8,
+          "on_time": 2,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-07",
+          "pct": 74.3,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-08",
+          "pct": 79.3,
+          "on_time": 2,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-09",
+          "pct": 74.3,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-10",
+          "pct": 74.1,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-11",
+          "pct": 81.0,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-12",
+          "pct": 76.5,
+          "on_time": 2,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-13",
+          "pct": 78.9,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-14",
+          "pct": 75.6,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-15",
+          "pct": 79.6,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 2,
+          "failed": 1
+        }
+      ]
+    },
+    "KSA": {
+      "currency": "SAR",
+      "authority": "ZATCA",
+      "jurisdiction": "Fatoora Phase 2 (two-track)",
+      "documents": 91,
+      "matched": 30,
+      "match_pct": 33.0,
+      "vat_at_risk": 114463.0,
+      "exceptions": 52,
+      "sales": {
+        "documents": 58,
+        "matched": 20,
+        "match_pct": 34.5,
+        "vat_at_risk": 82463.61,
+        "exceptions": 34
+      },
+      "purchase": {
+        "documents": 33,
+        "matched": 10,
+        "match_pct": 30.3,
+        "vat_at_risk": 31999.39,
+        "exceptions": 18
+      },
+      "entities": [
+        {
+          "entity_id": "K2",
+          "entity_name": "ABC Trading KSA Co.",
+          "side": "sales",
+          "source": "ORACLE_KSA",
+          "documents": 29,
+          "matched": 12,
+          "match_pct": 41.4,
+          "vat_at_risk": 46365.27,
+          "exceptions": 17
+        },
+        {
+          "entity_id": "K1",
+          "entity_name": "ABC Retail KSA Co.",
+          "side": "sales",
+          "source": "SAP_KSA",
+          "documents": 29,
+          "matched": 8,
+          "match_pct": 27.6,
+          "vat_at_risk": 36098.34,
+          "exceptions": 17
+        },
+        {
+          "entity_id": "K2",
+          "entity_name": "ABC Trading KSA Co.",
+          "side": "purchase",
+          "source": "ORACLE_KSA",
+          "documents": 16,
+          "matched": 6,
+          "match_pct": 37.5,
+          "vat_at_risk": 13337.58,
+          "exceptions": 8
+        },
+        {
+          "entity_id": "K1",
+          "entity_name": "ABC Retail KSA Co.",
+          "side": "purchase",
+          "source": "SAP_KSA",
+          "documents": 17,
+          "matched": 4,
+          "match_pct": 23.5,
+          "vat_at_risk": 18661.81,
+          "exceptions": 10
+        }
+      ],
+      "recon_state": {
+        "exact_match": 30,
+        "mismatch": 22,
+        "missing_in_einvoice": 22,
+        "missing_in_gl": 8,
+        "out_of_scope": 9
+      },
+      "recon_total": 91,
+      "var_by_team": {
+        "Tax / Compliance": 71833.7,
+        "Finance": 27563.26,
+        "IT": 15066.04,
+        "Billing": 0.0
+      },
+      "var_by_finding": {
+        "Invoice not reported to authority": 19448.79,
+        "Missing e-invoice (not sent by vendor)": 17411.51,
+        "Unbooked revenue (e-invoice, no GL)": 13427.39,
+        "Tax rate / category mismatch": 11401.59,
+        "Cancelled in GL but e-invoice still live": 10151.75,
+        "E-invoice generation failed": 10118.78
+      },
+      "cnt_by_team": {
+        "Billing": 44,
+        "Tax / Compliance": 32,
+        "Finance": 11,
+        "IT": 4
+      },
+      "cnt_by_severity": {
+        "Level 1": 36,
+        "Level 3": 36,
+        "Level 2": 19
+      },
+      "on_time": {
+        "True": 88,
+        "False": 3
+      },
+      "worklist_top": [
+        {
+          "document_no": "INV-KSA-500085",
+          "entity": "ABC Retail KSA Co.",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 5807.24,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500110",
+          "entity": "ABC Trading KSA Co.",
+          "side": "sales",
+          "finding": "Unbooked revenue (e-invoice, no GL)",
+          "severity": "Level 3",
+          "vat": 5792.14,
+          "team": "Tax / Compliance",
+          "state": "missing_in_gl",
+          "authority": "Cleared",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500112",
+          "entity": "ABC Trading KSA Co.",
+          "side": "sales",
+          "finding": "Cancelled in GL but e-invoice still live",
+          "severity": "Level 2",
+          "vat": 5329.01,
+          "team": "Finance",
+          "state": "missing_in_gl",
+          "authority": "Cleared",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500116",
+          "entity": "ABC Trading KSA Co.",
+          "side": "sales",
+          "finding": "E-invoice generation failed",
+          "severity": "Level 3",
+          "vat": 5325.63,
+          "team": "IT",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500108",
+          "entity": "ABC Retail KSA Co.",
+          "side": "sales",
+          "finding": "Unbooked revenue (e-invoice, no GL)",
+          "severity": "Level 3",
+          "vat": 5208.33,
+          "team": "Tax / Compliance",
+          "state": "missing_in_gl",
+          "authority": "Cleared",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500062",
+          "entity": "ABC Trading KSA Co.",
+          "side": "sales",
+          "finding": "Tax rate / category mismatch",
+          "severity": "Level 3",
+          "vat": 5188.22,
+          "team": "Tax / Compliance",
+          "state": "mismatch",
+          "authority": "Cleared",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500098",
+          "entity": "ABC Retail KSA Co.",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 5120.6,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500114",
+          "entity": "ABC Retail KSA Co.",
+          "side": "sales",
+          "finding": "Cancelled in GL but e-invoice still live",
+          "severity": "Level 2",
+          "vat": 4822.74,
+          "team": "Finance",
+          "state": "missing_in_gl",
+          "authority": "Cleared",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500115",
+          "entity": "ABC Trading KSA Co.",
+          "side": "sales",
+          "finding": "E-invoice generation failed",
+          "severity": "Level 3",
+          "vat": 4793.15,
+          "team": "IT",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-KSA-500088",
+          "entity": "ABC Retail KSA Co.",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 4583.24,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        }
+      ],
+      "adherence": [
+        {
+          "date": "2026-06-16",
+          "pct": 66.3,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-17",
+          "pct": 70.6,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-18",
+          "pct": 75.0,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-19",
+          "pct": 71.4,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-20",
+          "pct": 68.7,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-21",
+          "pct": 71.1,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-22",
+          "pct": 75.6,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-23",
+          "pct": 65.8,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-24",
+          "pct": 69.1,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-25",
+          "pct": 71.1,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-26",
+          "pct": 73.2,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-27",
+          "pct": 68.7,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-28",
+          "pct": 65.9,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-29",
+          "pct": 68.3,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-30",
+          "pct": 74.2,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-01",
+          "pct": 73.0,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-02",
+          "pct": 70.5,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-03",
+          "pct": 68.3,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-04",
+          "pct": 76.1,
+          "on_time": 2,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-05",
+          "pct": 75.9,
+          "on_time": 2,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-06",
+          "pct": 69.4,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-07",
+          "pct": 66.0,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-08",
+          "pct": 71.8,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 2,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-09",
+          "pct": 76.4,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-10",
+          "pct": 70.0,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-11",
+          "pct": 68.3,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-12",
+          "pct": 75.6,
+          "on_time": 2,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-13",
+          "pct": 71.3,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-14",
+          "pct": 70.4,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-15",
+          "pct": 68.1,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 0
+        }
+      ]
+    },
+    "OMN": {
+      "currency": "OMR",
+      "authority": "OTA",
+      "jurisdiction": "Peppol 5-corner (ASP)",
+      "documents": 91,
+      "matched": 25,
+      "match_pct": 27.5,
+      "vat_at_risk": 37745.71,
+      "exceptions": 57,
+      "sales": {
+        "documents": 58,
+        "matched": 15,
+        "match_pct": 25.9,
+        "vat_at_risk": 26565.85,
+        "exceptions": 39
+      },
+      "purchase": {
+        "documents": 33,
+        "matched": 10,
+        "match_pct": 30.3,
+        "vat_at_risk": 11179.86,
+        "exceptions": 18
+      },
+      "entities": [
+        {
+          "entity_id": "O1",
+          "entity_name": "ABC Oman LLC",
+          "side": "sales",
+          "source": "SAP_OMN",
+          "documents": 29,
+          "matched": 9,
+          "match_pct": 31.0,
+          "vat_at_risk": 9559.85,
+          "exceptions": 18
+        },
+        {
+          "entity_id": "O2",
+          "entity_name": "ABC Muscat Trading LLC",
+          "side": "sales",
+          "source": "D365POS_OMN",
+          "documents": 29,
+          "matched": 6,
+          "match_pct": 20.7,
+          "vat_at_risk": 17006.0,
+          "exceptions": 21
+        },
+        {
+          "entity_id": "O2",
+          "entity_name": "ABC Muscat Trading LLC",
+          "side": "purchase",
+          "source": "D365POS_OMN",
+          "documents": 16,
+          "matched": 5,
+          "match_pct": 31.2,
+          "vat_at_risk": 3767.56,
+          "exceptions": 8
+        },
+        {
+          "entity_id": "O1",
+          "entity_name": "ABC Oman LLC",
+          "side": "purchase",
+          "source": "SAP_OMN",
+          "documents": 17,
+          "matched": 5,
+          "match_pct": 29.4,
+          "vat_at_risk": 7412.3,
+          "exceptions": 10
+        }
+      ],
+      "recon_state": {
+        "exact_match": 25,
+        "mismatch": 22,
+        "missing_in_einvoice": 27,
+        "missing_in_gl": 8,
+        "out_of_scope": 9
+      },
+      "recon_total": 91,
+      "var_by_team": {
+        "Tax / Compliance": 24784.25,
+        "Finance": 7561.68,
+        "IT": 5399.78,
+        "Billing": 0.0
+      },
+      "var_by_finding": {
+        "Invoice not reported to authority": 9042.29,
+        "Missing e-invoice (not sent by vendor)": 5404.0,
+        "Missed booking (in e-invoice, no GL)": 3015.57,
+        "Submission failed at authority": 2953.94,
+        "E-invoice generation failed": 2874.97,
+        "Status / lifecycle conflict": 2843.27
+      },
+      "cnt_by_team": {
+        "Billing": 39,
+        "Tax / Compliance": 37,
+        "Finance": 11,
+        "IT": 4
+      },
+      "cnt_by_severity": {
+        "Level 1": 31,
+        "Level 3": 41,
+        "Level 2": 19
+      },
+      "on_time": {
+        "True": 86,
+        "False": 5
+      },
+      "worklist_top": [
+        {
+          "document_no": "INV-OMN-500085",
+          "entity": "ABC Muscat Trading LLC",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 1929.0,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-OMN-500131",
+          "entity": "ABC Muscat Trading LLC",
+          "side": "sales",
+          "finding": "Ingestion failed (landing failed)",
+          "severity": "Level 3",
+          "vat": 1881.96,
+          "team": "IT",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-OMN-500074",
+          "entity": "ABC Oman LLC",
+          "side": "sales",
+          "finding": "Status / lifecycle conflict",
+          "severity": "Level 3",
+          "vat": 1696.28,
+          "team": "Tax / Compliance",
+          "state": "mismatch",
+          "authority": "Reported",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-OMN-500092",
+          "entity": "ABC Oman LLC",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 1587.57,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-OMN-500129",
+          "entity": "ABC Muscat Trading LLC",
+          "side": "sales",
+          "finding": "E-invoice generation failed",
+          "severity": "Level 3",
+          "vat": 1473.61,
+          "team": "IT",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-OMN-500099",
+          "entity": "ABC Muscat Trading LLC",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 1470.87,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-OMN-500125",
+          "entity": "ABC Muscat Trading LLC",
+          "side": "sales",
+          "finding": "E-invoice generation failed",
+          "severity": "Level 3",
+          "vat": 1401.36,
+          "team": "IT",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "BILL-OMN-500201",
+          "entity": "ABC Oman LLC",
+          "side": "purchase",
+          "finding": "Missed booking (in e-invoice, no GL)",
+          "severity": "Level 3",
+          "vat": 1380.83,
+          "team": "Tax / Compliance",
+          "state": "missing_in_gl",
+          "authority": "Received",
+          "on_time": true
+        },
+        {
+          "document_no": "INV-OMN-500084",
+          "entity": "ABC Oman LLC",
+          "side": "sales",
+          "finding": "Invoice not reported to authority",
+          "severity": "Level 3",
+          "vat": 1321.44,
+          "team": "Tax / Compliance",
+          "state": "missing_in_einvoice",
+          "authority": "Not generated",
+          "on_time": true
+        },
+        {
+          "document_no": "BILL-OMN-500189",
+          "entity": "ABC Oman LLC",
+          "side": "purchase",
+          "finding": "Missing e-invoice (not sent by vendor)",
+          "severity": "Level 2",
+          "vat": 1257.56,
+          "team": "Finance",
+          "state": "missing_in_einvoice",
+          "authority": "Received",
+          "on_time": true
+        }
+      ],
+      "adherence": [
+        {
+          "date": "2026-06-16",
+          "pct": 60.8,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-17",
+          "pct": 63.1,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-18",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-19",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 2,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-20",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-21",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-22",
+          "pct": 61.1,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-23",
+          "pct": 61.3,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-24",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-25",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-06-26",
+          "pct": 65.9,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-27",
+          "pct": 65.4,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-28",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-29",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-06-30",
+          "pct": 62.0,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-01",
+          "pct": 64.8,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-02",
+          "pct": 61.3,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-03",
+          "pct": 60.9,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-04",
+          "pct": 63.8,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-05",
+          "pct": 63.6,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 2,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-06",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 1,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-07",
+          "pct": 66.1,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-08",
+          "pct": 63.6,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-09",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-10",
+          "pct": 61.4,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 1,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-11",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 2,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-12",
+          "pct": 64.3,
+          "on_time": 1,
+          "delayed": 0,
+          "missed": 2,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-13",
+          "pct": 62.2,
+          "on_time": 1,
+          "delayed": 1,
+          "missed": 0,
+          "failed": 0
+        },
+        {
+          "date": "2026-07-14",
+          "pct": 63.4,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 1
+        },
+        {
+          "date": "2026-07-15",
+          "pct": 60.0,
+          "on_time": 1,
+          "delayed": 2,
+          "missed": 0,
+          "failed": 1
+        }
+      ]
+    }
+  }
+}
