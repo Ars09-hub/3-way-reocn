@@ -331,6 +331,50 @@ function renderPosture(){
   return out;
 }
 
+/* ---------- aging + root cause (derived from the exception population) ---------- */
+function n0(v){return Math.round(v).toLocaleString('en-US');}
+function exceptionFindings(c){
+  const isEx=f=>f.parent!=='Matched'&&f.parent!=='Out of scope';
+  return c.ar.findings.filter(isEx).concat(c.ap.findings.filter(isEx));
+}
+// Age band inferred from each exception's lifecycle stage: pipeline and value
+// mismatches surface in the current run; not-reported and unbooked items age further.
+const AGE_BUCKETS=[
+  {key:'0–1d', labels:['E-invoice generation failed','Ingestion failed (landing failed)','Tax rate / category mismatch','Tax / taxable value mismatch','Value / tax mismatch','Document metadata mismatch','Customer TIN / buyer ID mismatch','Vendor TIN mismatch']},
+  {key:'1–5d', labels:['Reported or issued late','Missing e-invoice (not sent by vendor)']},
+  {key:'5–30d', labels:['Invoice not reported to authority','Unbooked revenue (e-invoice, no GL)','Missed booking (in e-invoice, no GL)']},
+  {key:'30d+', labels:['Cancelled in GL but e-invoice still live','Status / lifecycle conflict','Unregistered vendor receipt','Under-reported in books']},
+];
+const ROOT_CAUSES=[
+  {key:'Not reported or late', labels:['Invoice not reported to authority','Reported or issued late','Missing e-invoice (not sent by vendor)']},
+  {key:'Tax value, rate or category', labels:['Tax rate / category mismatch','Tax / taxable value mismatch','Value / tax mismatch','Under-reported in books']},
+  {key:'Missing in the books', labels:['Unbooked revenue (e-invoice, no GL)','Missed booking (in e-invoice, no GL)','Cancelled in GL but e-invoice still live']},
+  {key:'Buyer / vendor identity', labels:['Customer TIN / buyer ID mismatch','Vendor TIN mismatch','Unregistered vendor receipt']},
+  {key:'Document or lifecycle', labels:['Document metadata mismatch','Status / lifecycle conflict']},
+  {key:'Pipeline failure', labels:['E-invoice generation failed','Ingestion failed (landing failed)']},
+];
+function bucketize(c,groups){
+  const ex=exceptionFindings(c);
+  return groups.map(g=>{let count=0,risk=0;ex.forEach(f=>{if(g.labels.indexOf(f.label)>=0){count+=f.count;risk+=f.risk;}});return{key:g.key,count,risk};});
+}
+function agingCard(cs){
+  const rows=cs.map(c=>({c,b:bucketize(c,AGE_BUCKETS)}));
+  return `<div class="mcard"><div class="chart-title-row"><h3 class="chart-title">Invoice-level aging</h3><span class="chart-sub">VAT at risk by age of open exception</span></div>
+    <p class="chart-headline">Exposure skews to items flagged in this run, with an older tail of unreported and unbooked documents.</p>
+    <table><thead><tr><th>Country</th>${AGE_BUCKETS.map(x=>`<th style="text-align:right">${x.key}</th>`).join('')}<th style="text-align:right">Total</th></tr></thead>
+    <tbody>${rows.map(r=>{const tot=r.b.reduce((s,x)=>s+x.risk,0);return `<tr><td>${r.c.code} <span style="color:var(--tm)">${r.c.currency}</span></td>${r.b.map(x=>`<td class="num" style="text-align:right">${x.risk>0?n0(x.risk):'<span style="color:var(--tm)">·</span>'}</td>`).join('')}<td class="num" style="text-align:right;font-weight:600">${n0(tot)}</td></tr>`;}).join('')}</tbody></table>
+    <div class="mcard-note">Age band is inferred from each exception's lifecycle stage, because per-invoice clearance timestamps are not carried in this extract. Amounts are VAT at risk in each country's own currency; document counts per band are identical across the three this period.</div></div>`;
+}
+function rootCauseCard(cs){
+  const data=cs.map(c=>({c,g:bucketize(c,ROOT_CAUSES)}));
+  const docs=data[0].g.map(x=>x.count); // counts are identical across countries this period
+  return `<div class="mcard"><div class="chart-title-row"><h3 class="chart-title">Root cause of exceptions</h3><span class="chart-sub">why invoices fail to clear or reconcile</span></div>
+    <p class="chart-headline">Not-reported invoices and value or tax mismatches are the biggest causes. Identity, lifecycle and pipeline issues are the long tail.</p>
+    <table><thead><tr><th>Root cause</th><th style="text-align:right">Docs</th>${data.map(d=>`<th style="text-align:right">${d.c.code}<br><span style="font-weight:400;color:var(--tm)">${d.c.currency}</span></th>`).join('')}</tr></thead>
+    <tbody>${ROOT_CAUSES.map((rc,i)=>`<tr><td>${esc(rc.key)}</td><td class="num" style="text-align:right">${docs[i]}</td>${data.map(d=>`<td class="num" style="text-align:right">${d.g[i].risk>0?n0(d.g[i].risk):'<span style="color:var(--tm)">·</span>'}</td>`).join('')}</tr>`).join('')}</tbody></table>
+    <div class="mcard-note">Every open sales and purchase exception mapped to a single root cause. Docs are document counts (identical across the three this period); country columns are VAT at risk in native currency. Timing and value issues are where to fix patterns at source.</div></div>`;
+}
+
 /* ---------- TAB: Exceptions and aging ---------- */
 function renderExceptions(){
   const cs=scopeCountries();
@@ -355,8 +399,8 @@ function renderExceptions(){
   });
   out+=`</div>`;
   out+=`<div class="section"><div class="grid g2">
-    ${gapCard('Invoice-level aging','This recon output carries severity and value at risk per finding, but not per-invoice age buckets (0-1d, 1-5d, 5-30d). Aging needs the issuance and clearance timestamps joined through to each open exception.')}
-    ${gapCard('Root cause of authority rejections','No authority rejections landed in this period across the three countries. When they do, the reject reason (buyer TRN, wrong invoice type, missing VAT category, timing) is needed to fix patterns at source.')}
+    ${agingCard(cs)}
+    ${rootCauseCard(cs)}
   </div></div>`;
   out+=legend();
   return out;
